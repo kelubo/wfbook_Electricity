@@ -90,4 +90,4 @@ $$
 
 ## 电容各单位间转换表
 
-![](../../../Image/c/capacitance-conversion-table.jpg)
+![](/Images/capacitance-conversion-table.jpg)
