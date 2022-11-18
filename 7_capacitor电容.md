@@ -131,3 +131,14 @@ $$
 ## 电容各单位间转换表
 
 ![](/Images/capacitance-conversion-table.jpg)
+
+## 电容充放电
+
+电容器充放电时间的快慢仅与电阻值 R 及电容值 C 的乘积 RC 有关，而与电源电动势 E 大小无关。
+$$
+\Huge\tau = RC
+$$
+
+* τ	阻容回路的充放电时间常数    s
+* R                                                     Ω
+* C                                                     F
