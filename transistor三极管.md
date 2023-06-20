@@ -17,8 +17,8 @@
 集电结---集电区与基区边界形成的PN结。
 
 ## 分类
-NPN型和PNP型
-![](../../Image/PNP_NPN.jpg)
+NPN 型和 PNP 型
+ ![](./Images/PNP_NPN.jpg)
 
 ## 用途
 放大器，开关
