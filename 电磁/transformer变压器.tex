@@ -1,0 +1,730 @@
+% transformer变压器
+% 模板参考：D:\Git\Book\0_book\book.tex
+
+\documentclass[12pt,UTF8]{ctexbook}
+
+% 设置纸张信息。
+\input{D:/Git/Book/common/page}
+
+% 设置字体，并解决显示难检字问题。
+\xeCJKsetup{AutoFallBack=true}
+\setCJKfamilyfont{hei}{SimHei}
+\setCJKfamilyfont{kai}{KaiTi}
+
+% 目录 chapter 级别加点（.）。
+\usepackage{titletoc}
+\titlecontents{chapter}[0pt]{\vspace{3mm}\bf\addvspace{2pt}\filright}{\contentspush{\thecontentslabel\hspace{0.8em}}}{}{\titlerule*[8pt]{.}\contentspage}
+
+% 支持目录点击跳转
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+% 设置 part 和 chapter 标题格式。
+\ctexset{
+	part/name= {第,卷},
+	part/number={\chinese{part}},
+	chapter/name={第,章},
+	chapter/number={\arabic{chapter}}
+}
+
+% 图片相关设置。
+\usepackage{graphicx}
+\graphicspath{{../Images/}}
+
+% 数学公式支持
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% 设置署名格式。
+\newenvironment{shuming}{\hfill\zihao{4}}
+
+% 注脚每页重新编号。
+\usepackage[perpage]{footmisc}
+
+% 列表项向右偏移。
+\usepackage{enumitem}
+
+% 代码块设置。
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+    frame=single,
+    numbers=left,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numberstyle=\tiny\color{gray},
+    xleftmargin=2em,
+    framexleftmargin=1.5em,
+    framerule=0.4pt,
+    backgroundcolor=\color{gray!5},
+    showspaces=false,
+    showstringspaces=false
+}
+
+% 表格设置。
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+
+\title{\heiti\zihao{0} 变压器技术手册}
+\author{WangFei}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\mainmatter
+
+\part{变压器基础}
+
+\chapter{概述}
+\label{chap:overview}
+
+\section{变压器的基本原理}
+
+变压器根据互感原理制成，是利用电磁感应原理改变交流电电压大小的装置。
+
+符号表示：B 或 T
+
+\section{基本结构}
+
+变压器的基本结构由导线、硅钢片和绝缘材料等组成。
+
+\subsection{铁芯}
+
+铁芯是用一定形状的硅钢片叠成，硅钢片上涂有绝缘漆，使片与片之间彼此绝缘。变压器接上交流电源后，变化的磁力线穿过铁芯截面，在铁芯上产生感应电流，像旋涡一样流动，称为涡电流（简称涡流）。由于电流的热效应，涡流会引起铁芯发热。如涡流过大，不仅会损耗电能，降低效率，还会因铁芯过热使线圈绝缘破坏，导致变压器烧毁。
+
+铁芯不用整块原铁，而用涂有绝缘材料的硅钢片制成，这样涡流仅仅流动于薄薄的硅钢片的横截面内，增大了涡流回路的电阻，使涡流大大减小。
+
+\subsection{结构形式}
+
+\subsubsection{芯式（口型）}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{变压器1.png}
+\caption{芯式变压器}
+\end{figure}
+
+线圈分开绕在两个芯柱上，有较大的位置处置绝缘问题，适用于电压较高的场合。
+
+\subsubsection{壳式（EI型）}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{变压器2.png}
+\caption{壳式变压器}
+\end{figure}
+
+线圈绕在中心柱上，不易碰伤，是小型变压器中最常用的结构。
+
+\subsubsection{C 型}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{变压器3.png}
+\caption{C型变压器}
+\end{figure}
+
+铁芯是由冷轧硅钢带卷绕而成，体积小，重量轻，效率高。
+
+\subsubsection{R 型}
+
+R 型变压器的铁芯由高导磁率的硅钢片卷绕而成，具有低损耗、高效率的特点。
+
+\subsubsection{环型}
+
+环型变压器的铁芯呈环形，漏磁小，效率高，常用于音频设备和高精度仪器。
+
+\chapter{变压器的基本参数}
+\label{chap:parameters}
+
+\section{变压比}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{变压器4.png}
+\caption{变压器原理示意图}
+\end{figure}
+
+$$
+\Huge n = \frac{N_{1}}{N_{2}} = \frac{U_{1}}{U_{2}} = \frac{I_{2}}{I_{1}} = \sqrt{\frac{ Z_{1} } { Z_{2} } }
+$$
+
+\begin{itemize}[leftmargin=2cm]
+    \item $n$：变压比
+    \item $N_{1}$：一次绕组的匝数
+    \item $N_{2}$：二次绕组的匝数
+    \item $U_{1}$：一次绕组两端的输入电压
+    \item $U_{2}$：二次绕组两端的输出电压
+    \item $I_{1}$：一次绕组的输入电流
+    \item $I_{2}$：二次绕组的输出电流
+    \item $Z_{1}$：一次绕组的输入阻抗
+    \item $Z_{2}$：二次绕组的输出阻抗
+\end{itemize}
+
+\section{空载电流}
+
+变压器不接负载时，初级线圈中的电流。大小取决于初级线圈的匝数、绕法与铁芯的质量。一般来说，线圈匝数越多，铁芯质量越好，空载电流越小，通常只有工作电流的 1/5~1/2。空载电流越小，变压器本身损耗越小。
+
+\section{效率}
+
+实际上，电流通过变压器时，变压器的铁芯和线圈都要发热消耗一定的能量，但这些损失很小。变压器的输出功率 $P_{2}$ 与输入功率 $P_{1}$ 的百分比称作变压器的效率。
+
+$$
+\Huge \eta =\frac{ P_{2} }{ P_{1}} \times 100 \%
+$$
+
+$$
+\Huge P_{1} =  P_{2} +  P_{M} +  P_{C} 
+$$
+
+\begin{itemize}[leftmargin=2cm]
+    \item $\eta$：效率
+    \item $P_{1}$：输入功率
+    \item $P_{2}$：输出功率
+    \item $P_{M}$：铜损（线圈的热效应）
+    \item $P_{C}$：铁损（铁芯损失）
+\end{itemize}
+
+\section{损耗分析}
+
+\begin{itemize}
+    \item \textbf{铁损（铁芯损失）}
+    \begin{itemize}
+        \item 涡流损失
+        \item 磁滞损失
+    \end{itemize}
+    \item \textbf{铜损（线圈的热效应）}
+\end{itemize}
+
+\section{变压器的用途}
+
+\begin{itemize}
+    \item 电压变换
+    \item 阻抗变换
+    \item 隔离
+    \item 稳压
+    \item 隔直流
+\end{itemize}
+
+\section{变压器的分类}
+
+\begin{table}[htbp]
+\centering
+\caption{变压器分类表}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{分类方法} & \textbf{类别} \\
+\hline
+冷却方式 & 干式（自冷），油浸式，氟化物 \\
+\hline
+铁心或线圈结构 & 芯式，壳式，环型，金属箔 \\
+\hline
+铁心形状 & E型，C型，环型 \\
+\hline
+防潮方式 & 开放式，灌封式，密封式 \\
+\hline
+用途 & 电源，调压，音频，中频，高频，脉冲，隔离，自耦，恒压，耦合 \\
+\hline
+电源相数 & 单相，三相，多相 \\
+\hline
+\end{tabular}
+\end{table}
+
+\chapter{变压器类型}
+\label{chap:types}
+
+\section{低频变压器}
+
+低频变压器主要用于电源变压器和音频变压器，工作频率为工频（50Hz/60Hz）或音频范围（20Hz~20kHz）。
+
+\section{中频变压器（中周）}
+
+中频变压器是超外差式收音机内特有的元件，工作频率在几百 kHz 到几 MHz 范围。
+
+\begin{itemize}
+    \item 单调谐式
+    \item 双调谐式
+\end{itemize}
+
+\section{高频变压器}
+
+高频变压器工作频率在几 MHz 到几百 MHz 范围，包括：
+
+\begin{itemize}
+    \item 天线线圈
+    \item 振荡线圈
+    \item 电视机天线阻抗变换器
+    \item 行输出等脉冲变压器
+\end{itemize}
+
+\section{隔离变压器}
+\label{sec:isolation}
+
+\subsection{概述}
+
+隔离变压器是一次侧、二次侧绕组间有较高绝缘强度以隔离不同电位、抑制共模干扰的专用变压器。隔离变压器的变比通常是 1:1（但并非全部）。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{隔离变压器.png}
+\caption{隔离变压器}
+\end{figure}
+
+隔离变压器属于安全电源，一般用来机器维修、保养用，起保护、防雷、滤波作用。
+
+\subsection{工作原理}
+
+隔离变压器的原理和普通变压器的原理是一样的，都是利用电磁感应原理。隔离变压器一般是指 1:1 的变压器。由于次级不和地相连，次级任一根线与地之间没有电位差，使用安全，常用作维修电源。
+
+隔离变压器不全是 1:1 变压器。控制变压器和电子管设备的电源也是隔离变压器。如电子管扩音机、电子管收音机与示波器，以及车床控制变压器等电源都是隔离变压器。如为了安全维修彩电常用 1:1 的隔离变压器。
+
+\subsection{静电屏蔽}
+
+一般变压器原、副绕组之间虽也有隔离电路的作用，但在频率较高的情况下，两绕组之间的电容仍会使两侧电路之间出现静电干扰。为避免这种干扰，隔离变压器的原、副绕组一般分置于不同的心柱上，以减小两者之间的电容；也有采用原、副绕组同心放置的，但在绕组之间加置静电屏蔽，以获得高的抗干扰性。
+
+静电屏蔽就是在原、副绕组之间设置一片不闭合的铜片或非磁性导电纸，称为屏蔽层。铜片或非磁性导电纸用导线连接于外壳。有时为了取得更好的屏蔽效果，在整个变压器还罩一个屏蔽外壳。对绕组的引出线端子也加屏蔽，以防止其他外来的电磁干扰。这样可使原、副绕组之间主要只剩磁的耦合，而其间的等值分布电容可小于 0.01pF，从而大大减小原、副绕组间的电容电流，有效地抑制来自电源以及其他电路的各种干扰。
+
+\subsection{隔离变压器分类}
+
+\begin{table}[htbp]
+\centering
+\caption{隔离变压器分类}
+\begin{tabular}{|p{3cm}|p{9cm}|}
+\hline
+\textbf{类型} & \textbf{说明} \\
+\hline
+普通隔离变压器 & 一般的电力变压器不论变比为多少都具有电位隔离的功能，被广泛应用于交流电源线上、通信线上，隔离接地回路，有效抑制低频、音频范围内的共模干扰\\
+\hline
+屏蔽隔离变压器 & 在一次侧和二次侧之间插入一层金属屏蔽层，屏蔽层将一次侧与二次侧之间的电容分为两个，起到了屏蔽作用\\
+\hline
+双重屏蔽隔离变压器 & 一层屏蔽层连接到一次侧以降低差模噪声，另一层屏蔽层连接到共模干扰的基准面或地线上以降低共模噪声\\
+\hline
+三重屏蔽隔离变压器 & 当需要更高隔离要求的时候，可选用三重屏蔽的隔离变压器\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{隔离变压器的作用}
+
+\begin{enumerate}
+    \item 使一次侧与二次侧的电气完全绝缘，使回路隔离
+    \item 利用铁芯的高频损耗大的特点，抑制高频杂波传入控制回路
+    \item 使二次对地悬浮，在供电范围较小、线路较短的场合使用
+    \item 保护人身安全，隔离危险电压
+    \item 对输入端起到过滤作用，提供纯净的电源电压
+    \item 防干扰，可广泛用于地铁、高层建筑、机场、车站等场所
+\end{enumerate}
+
+\section{控制变压器}
+
+控制变压器主要用来"控制"用，主要是把一次电压变换到适合电器控制回路的电压。比如车床控制电路，为了车床操作人员的安全，一般将车床控制电路降到 36V 安全电压。这里就需要一个 380V/36V 的控制变压器。
+
+控制变压器是作为电气控制回路的供电电源使用的，目的是为了满足不同用电电气元件的电压需求。在低压配电系统中，控制变压器因多用于控制系统而得名。它实际上是一个具有多种输出电压的降压变压器，也可用做低压照明及信号灯、指示灯的电源。
+
+\section{自耦变压器}
+
+自耦变压器是指它的绕组是初级和次级在同一条绕组上的变压器。根据结构还可细分为可调压式和固定式。
+
+自耦的耦是电磁耦合的意思，普通的变压器是通过原副边线圈电磁耦合来传递能量，自耦变压器原副边有直接电的联系，它的低压线圈就是高压线圈的一部分。
+
+自耦式结构比较简单、成本低、输入/输出和零线共用，变压器的副边是原边的一部分，其一、二次侧共同用一个绕组，变压器的输出和输入有直接电联系，安全性能差。
+
+\section{各类变压器对比}
+
+\begin{table}[htbp]
+\centering
+\caption{各类变压器对比}
+\small
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{对比项} & \textbf{普通变压器} & \textbf{隔离变压器} & \textbf{自耦变压器} \\
+\hline
+主要任务 & 改变电压 & 电气隔离 & 改变电压 \\
+\hline
+原副边关系 & 电气隔离 & 电气隔离 & 直接电联系 \\
+\hline
+变压比 & 自由选择 & 通常 1:1 & 自由选择 \\
+\hline
+安全性 & 一般 & 高 & 较低 \\
+\hline
+成本 & 中等 & 较高 & 低 \\
+\hline
+典型应用 & 电力系统 & 维修电源、医疗设备 & 调压、电机启动 \\
+\hline
+\end{tabular}
+\end{table}
+
+\part{电力系统油浸式变压器}
+
+\chapter{电力变压器概述}
+\label{chap:power_overview}
+
+\section{定位与应用}
+
+电力系统油浸式变压器是变电站、电线杆上常见的大型设备，用于高压输配电（电压等级从 10kV 到 1000kV 以上），容量以 kVA 或 MVA 为单位。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{应用场所}：发电厂、变电站、配电房
+    \item \textbf{电压等级}：10kV ~ 1000kV 以上
+    \item \textbf{容量范围}：kVA ~ MVA 级
+    \item \textbf{冷却方式}：油浸自冷、油浸风冷、强迫油循环
+\end{itemize}
+
+\chapter{典型结构}
+\label{chap:power_structure}
+
+以油浸式变压器为例，其主要结构包括：
+
+\section{铁芯与绕组}
+
+\begin{itemize}
+    \item \textbf{铁芯}：硅钢片叠成，作为磁通的通路
+    \item \textbf{绕组}：铜/铝绕组，低压绕组在内，高压绕组在外
+\end{itemize}
+
+\section{变压器油}
+
+变压器油既是绝缘介质，又是冷却介质，通过对流将热量带至油箱壁散热。
+
+\section{外壳（油箱）}
+
+油箱盛油和器身，通常带有散热片或片式散热器，用于将热量散发到空气中。
+
+\section{关键附件}
+
+\begin{table}[htbp]
+\centering
+\caption{电力变压器关键附件}
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\textbf{附件} & \textbf{功能说明} \\
+\hline
+储油柜（油枕） & 补偿油的热胀冷缩，防止油溢出或进入空气 \\
+\hline
+分接开关（无励磁/有载） & 调节电压比，适应不同的电压需求 \\
+\hline
+气体继电器（瓦斯继电器） & 反映内部故障：轻微故障产气报警，严重故障跳闸 \\
+\hline
+绝缘套管 & 将高压/低压引线引出油箱，实现对地绝缘 \\
+\hline
+吸湿器 & 过滤进入储油柜的空气中的水分和杂质 \\
+\hline
+压力释放阀 & 内部压力过大时释放压力，防止油箱爆炸 \\
+\hline
+温度计 & 测量油温，监测变压器运行温度 \\
+\hline
+\end{tabular}
+\end{table}
+
+\chapter{核心参数与计算公式}
+\label{chap:power_params}
+
+\section{核心参数}
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{电压等级与容量}：首要参数（如 110kV/10kV，50MVA）
+    \item \textbf{短路阻抗（$U_k\%$）}：决定系统短路电流水平和电压调整率，是电力系统计算的核心依据
+    \item \textbf{损耗}：分为空载损耗（铁损）和负载损耗（铜损）
+    \item \textbf{温升限制}：上层油温通常不允许超过 85℃（A 级绝缘）
+\end{itemize}
+
+\section{损耗分析}
+
+\begin{table}[htbp]
+\centering
+\caption{变压器损耗}
+\begin{tabular}{|c|c|p{6cm}|p{4cm}|}
+\hline
+\textbf{类型} & \textbf{别名} & \textbf{影响因素} & \textbf{特点} \\
+\hline
+空载损耗 & 铁损 & 与电压有关 & 基本恒定 \\
+\hline
+负载损耗 & 铜损 & 与负载电流平方成正比 & 随负载变化 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{实用公式}
+
+\begin{table}[htbp]
+\centering
+\caption{电力变压器常用公式}
+\begin{tabular}{|c|c|p{6cm}|}
+\hline
+\textbf{参数} & \textbf{公式} & \textbf{说明} \\
+\hline
+短路阻抗百分比 & $U_k\% = (U_{sc} / U_n) \times 100\%$ & 短路试验时，短路电压与额定电压之比 \\
+\hline
+电压调整率 & $\Delta U\% \approx \beta (U_k\% \cdot \cos\varphi + U_r\% \cdot \sin\varphi)$ & $\beta$ 为负载率，用于计算带载后输出电压变化 \\
+\hline
+负载率 & $\beta = \text{实际负荷} / \text{额定容量}$ & 用于计算实际铜损和运行效率 \\
+\hline
+综合损耗 & $\Delta P = P_0 + \beta^2 \cdot P_k$ & $P_0$ 为空载损耗，$P_k$ 为额定负载损耗 \\
+\hline
+\end{tabular}
+\end{table}
+
+\chapter{运行维护}
+\label{chap:power_maintenance}
+
+\section{日常巡视项目}
+
+\begin{enumerate}
+    \item 油位是否正常
+    \item 油温是否超限
+    \item 有无渗漏油
+    \item 声音是否均匀（无"咕嘟"放电声）
+    \item 套管有无放电
+\end{enumerate}
+
+\section{预防性试验}
+
+\begin{enumerate}
+    \item 绝缘电阻测试
+    \item 介质损耗测试
+    \item 绕组直流电阻测试
+    \item 绝缘油色谱分析（溶解气体分析，判断内部是否过热或放电）
+\end{enumerate}
+
+\section{常见故障}
+
+\begin{table}[htbp]
+\centering
+\caption{电力变压器常见故障}
+\begin{tabular}{|c|c|p{6cm}|}
+\hline
+\textbf{故障类型} & \textbf{现象} & \textbf{处理方法} \\
+\hline
+绝缘老化 & 绝缘电阻下降、局部放电 & 更换绝缘件、干燥处理 \\
+\hline
+绕组匝间短路 & 异常发热、电流增大 & 停电检修、更换绕组 \\
+\hline
+铁芯多点接地 & 异常发热、油色谱异常 & 检查接地点、排除多余接地 \\
+\hline
+分接开关接触不良 & 电压不稳、发热 & 检修或更换分接开关 \\
+\hline
+渗漏油 & 油位下降、地面有油污 & 紧固密封件、更换老化部件 \\
+\hline
+\end{tabular}
+\end{table}
+
+\part{电子设备用变压器}
+
+\chapter{电子变压器概述}
+\label{chap:electronic_overview}
+
+\section{定位与应用}
+
+电子设备用变压器是手机充电器、功放、路由器、开关电源、收音机内部的变压器。电压低（几V到几百V），功率小（几W到几千W），主要用于信号传递、阻抗匹配和隔离。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{应用场所}：消费电子、通信设备、工业控制
+    \item \textbf{电压范围}：几V ~ 几百V
+    \item \textbf{功率范围}：几W ~ kW 级
+    \item \textbf{工作频率}：20Hz ~ MHz 级
+\end{itemize}
+
+\chapter{典型结构与材料}
+\label{chap:electronic_structure}
+
+\section{铁芯材料}
+
+电子变压器的铁芯材料与电力变压器不同：
+
+\begin{table}[htbp]
+\centering
+\caption{电子变压器常用铁芯材料}
+\begin{tabular}{|c|c|p{6cm}|p{4cm}|}
+\hline
+\textbf{材料} & \textbf{类型} & \textbf{适用频率} & \textbf{典型应用} \\
+\hline
+铁氧体磁芯 & 高频 & 几十 kHz ~ 几 MHz & 开关电源、高频变压器 \\
+\hline
+薄硅钢片 & 低频 & 50Hz ~ 几百 Hz & 工频电源适配器 \\
+\hline
+EI型铁芯 & 低频 & 50Hz ~ 几 kHz & 电源变压器、音频变压器 \\
+\hline
+环型磁芯 & 宽频 & 50Hz ~ 几 MHz & 音频变压器、高频变压器 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{绕组}
+
+\begin{itemize}
+    \item 细漆包线绕制
+    \item 匝数可能很多（信号变压器）或较少（功率变换）
+    \item 通常用漆包线或丝包线
+\end{itemize}
+
+\section{封装形式}
+
+\begin{itemize}
+    \item 多为干式（无油）
+    \item 环氧树脂灌封
+    \item 塑料骨架包裹
+    \item 安全、轻便
+\end{itemize}
+
+\chapter{核心功能与参数}
+\label{chap:electronic_params}
+
+\section{阻抗匹配（最重要功能）}
+
+在音频功放、射频电路中，利用匝数比将负载阻抗反射到初级，使信号源获得最大输出功率或最小反射损耗。
+
+\section{信号隔离}
+
+隔离初级和次级的直流电位，防止触电或接地环路干扰。
+
+\section{频率响应}
+
+这是电子变压器的核心指标！电子变压器必须保证工作频段内（如音频 20Hz~20kHz，或开关电源 50kHz~1MHz）信号不失真、损耗小。
+
+\section{效率与体积}
+
+高频化可以大幅减小磁芯和绕组体积，但需考虑趋肤效应和邻近效应导致的额外铜损。
+
+\section{阻抗匹配深入解析}
+
+\subsection{核心公式}
+
+$$
+\frac{Z_{1}}{Z_{2}} = \left(\frac{N_{1}}{N_{2}}\right)^{2}
+$$
+
+\subsection{使用方式}
+
+若信号源内阻为 $R_s$，最佳负载也为 $R_s$。假设实际喇叭阻抗为 $R_L$，则需选择匝数比 $N_1/N_2 = \sqrt{R_s / R_L}$，使变压器初级等效阻抗等于 $R_s$，从而实现功率最大化传输。
+
+\subsection{应用场景}
+
+\begin{table}[htbp]
+\centering
+\caption{阻抗匹配应用场景}
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\textbf{场景} & \textbf{说明} \\
+\hline
+音频功放 & 功放管高阻输出 → 变压匹配 → 低阻扬声器（4Ω/8Ω） \\
+\hline
+射频（RF） & 50Ω天线与芯片前端匹配，减少驻波比 \\
+\hline
+矿机（矿石收音机） & 高阻检波器 → 变压器 → 低阻耳机 \\
+\hline
+测量仪器 & 传感器阻抗匹配，提高测量精度 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{专属参数与公式}
+
+\begin{table}[htbp]
+\centering
+\caption{电子变压器常用公式}
+\begin{tabular}{|c|c|p{6cm}|}
+\hline
+\textbf{参数} & \textbf{公式} & \textbf{说明} \\
+\hline
+阻抗变换比 & $Z_1 / Z_2 = (N_1 / N_2)^2$ & 电子领域最常用公式 \\
+\hline
+匝数比选择 & $N_1 / N_2 = \sqrt{Z_1 / Z_2}$ & 根据目标阻抗选择匝数 \\
+\hline
+频率响应下限 & $f_L = R / (2\pi L)$ & 电感量 $L$ 决定低频截止频率 \\
+\hline
+插入损耗 & $IL(\text{dB}) = 10\log(P_{in} / P_{out})$ & 衡量变压器对信号的衰减程度 \\
+\hline
+\end{tabular}
+\end{table}
+
+\chapter{电子变压器应用}
+\label{chap:electronic_apps}
+
+\section{低频变压器}
+
+\begin{itemize}
+    \item 电源变压器：将市电 220V 变换为电子设备所需的各种电压
+    \item 音频变压器：用于音频信号的传输和阻抗匹配
+\end{itemize}
+
+\section{中频变压器}
+
+中频变压器（中周）是超外差式收音机中的关键元件，工作频率固定在中频（通常为 465kHz 或 10.7MHz）。
+
+\begin{itemize}
+    \item 单调谐式
+    \item 双调谐式
+\end{itemize}
+
+\section{高频变压器}
+
+\begin{itemize}
+    \item 天线线圈
+    \item 振荡线圈
+    \item 电视机天线阻抗变换器
+    \item 行输出脉冲变压器
+\end{itemize}
+
+\section{开关电源中的变压器}
+
+开关电源中的变压器工作频率远高于工频（通常为几十 kHz 到几百 kHz），具有体积小、效率高的特点。
+
+\begin{itemize}
+    \item 反激式变压器：用于小功率电源
+    \item 正激式变压器：用于中功率电源
+    \item 推挽式变压器：用于大功率电源
+\end{itemize}
+
+\part{电力变压器 vs 电子变压器}
+
+\chapter{快速对比}
+\label{chap:comparison}
+
+\section{全面对比表}
+
+\begin{table}[htbp]
+\centering
+\caption{电力变压器与电子变压器对比}
+\small
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{对比维度} & \textbf{电力油浸式变压器} & \textbf{电子设备变压器} \\
+\hline
+电压等级 & 高压（10kV ~ 1000kV） & 低压（几V ~ 几百V） \\
+\hline
+容量范围 & 大（kVA ~ MVA） & 小（几W ~ kW） \\
+\hline
+冷却与绝缘 & 油浸自冷/风冷/强迫油循环 & 干式（空气自然冷却或风冷） \\
+\hline
+工作频率 & 工频（50Hz/60Hz） & 中频或高频（20Hz ~ MHz） \\
+\hline
+核心关注点 & 绝缘强度、温升、短路耐受、寿命 & 阻抗匹配、频率响应、体积重量、效率 \\
+\hline
+主要材料 & 硅钢片 + 铜绕组 + 矿物油 & 铁氧体/薄硅钢片 + 漆包线 + 树脂 \\
+\hline
+典型故障 & 油质劣化、匝间短路、渗漏油 & 绕组开路、磁饱和、高频发热烧毁 \\
+\hline
+主要公式 & $U_k\%$、电压调整率、铜铁损分离 & 阻抗变换比 $(Z_1/Z_2 = n^2)$、频率响应 \\
+\hline
+典型应用 & 电力系统、变电站、输配电 & 消费电子、通信设备、工业控制 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{选型建议}
+
+\begin{enumerate}
+    \item \textbf{电力系统应用}：选择油浸式或干式电力变压器，关注绝缘等级、短路阻抗、温升限制
+    \item \textbf{音频应用}：选择环型或 EI 型音频变压器，关注频率响应、失真度、阻抗匹配
+    \item \textbf{开关电源}：选择高频铁氧体变压器，关注工作频率、匝比、漏感
+    \item \textbf{射频应用}：选择高频低损耗变压器，关注插入损耗、驻波比、阻抗匹配
+    \item \textbf{隔离应用}：选择隔离变压器，关注绝缘等级、抗干扰能力
+\end{enumerate}
+
+\backmatter
+
+\end{document}
