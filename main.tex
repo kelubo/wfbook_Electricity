@@ -5630,9 +5630,31 @@ DAB——欧洲 Eureka 147 项目研发并于 1995 年首播——世界最早�
 \section{DSP收音机}
 \label{sec:dsp_radio}
 
+\subsection{DSP核心概念}
+
+**DSP（Digital Signal Processing，数字信号处理）** 是现代电子技术的核心基石。在传统的模拟收音机中，选台、滤波、检波等功能是由**电感、电容、晶体管**等硬件电路实现的。而 DSP 的核心作用是将这些“硬件电路”的功能转化为“数学算法”，通过计算机或专用芯片对**数字化的信号**进行高速运算处理。
+
+具体来说，DSP 主要解决以下问题：
+\begin{enumerate}[leftmargin=2cm]
+    \item **精准的信号筛选（滤波）**：无线电空间中充满了各种频率的信号。DSP 可以通过编写算法（如 FIR/IIR 滤波器），精确地“剪出”你想要的电台频率，滤除干扰。这比模拟滤波器更锐利、更可控。
+    \item **软件化的调制与解调**：无论是 AM、FM 还是更复杂的数字信号（如 DAB），都可以通过 DSP 算法灵活实现，而不需要更换硬件。
+    \item **数据压缩与编码**：将声音、图像等模拟信号转化为数字形式，并压缩成 MP3、H.264 等格式，便于存储和传输。
+    \item **实时、高吞吐量处理**：通过专用 DSP 芯片（如 TI 的 C6000 系列）或 FPGA，处理海量数据，实现低延迟的通信。
+\end{enumerate}
+
 \subsection{DSP收音机原理}
 
 DSP 收音机在中频阶段将信号经 ADC 数字化——在数字域用软件算法完成所有传统模拟中频处理——FIR 数字滤波取代中周/陶瓷滤波器、数字 NCO+乘法器实现精密下变频、软件解调（AM 同步检波/FM 鉴频/SSB 乘积+低通）、数字立体声解码——最后音频 DAC 输出。全部消除调试点——芯片间一致性完美——晶振精准即可——软件升级就能增加功能和改善算法。
+
+\subsection{DSP与SDR：从硬件通用化到算法定义}
+
+在本书的语境中，DSP 技术的发展直接推动了**软件无线电（SDR）**的诞生，实现了从“硬件搭建”到“算法定义”的跨越：
+
+\begin{itemize}[leftmargin=2cm]
+    \item **硬件通用化**：SDR 设备（如 HackRF, RTL-SDR）的硬件只负责“高速采集”和“高速回放”。真正决定它是收音机、对讲机还是卫星接收器的，是在 CPU/FPGA 上运行的 **DSP 算法（代码）**。
+    \item **极致灵活性**：一台 SDR 可以兼收 AM/FM/短波/卫星，只需在软件中切换不同的 DSP 处理流程，无需改动硬件。
+    \item **可升级性**：通过固件升级（更新 DSP 算法），老旧的硬件可以获得新的功能，延长产品生命周期。
+\end{itemize}
 
 \subsection{SI4730/4735}
 
@@ -5820,10 +5842,190 @@ Airspy 系列以高性能接收著称——Airspy R2 $24\,\mathrm{MHz}\sim1.7\,\
 
 SDRplay RSP 系列——全接收 SDR——采用 Mirics 的调谐芯片 + ADC ——RSPdx R2 覆盖 $1\,\mathrm{kHz}\sim2\,\mathrm{GHz}$、$14$ 位 ADC 动态优异、带内建前端预选器滤波——特别有 SW 性能后加镜——和丰富软件生态（SDRuno）——消费性需求——是业余 DXer 标配的 MIDDLE 高一寸长宽——性价比相当好。
 
-\subsection{PlutoSDR}
+% ================================================
+% 软件无线电（SDR） - 硬件平台详解
+% ================================================
+\chapter{SDR硬件平台详解}
+\label{chap:sdr_hardware_detailed}
 
-ADALM-PLUTO（ADI 产品）——基于 AD9363 射频收发器+Zynq FPGA——频率 $325\,\mathrm{MHz}\sim3.8\,\mathrm{GHz}$、$20\,\mathrm{MHz}$ 瞬时带宽——支持发射和接收（只有一个 $1\times1$ 信道）——是学习 SDR 和无线通信实验负担得起的学习套件——价格仅百美元级别——性能超出入门级。
+SDR 硬件是实现软件无线电的物理载体。本章将对目前主流的 SDR 硬件平台进行系统梳理和详细对比，帮助读者根据预算、应用场景和性能需求选择合适的硬件。
 
+\section{SDR硬件架构}
+\label{sec:sdr_hw_arch}
+
+SDR 硬件通常由以下几个核心部分组成：
+\begin{itemize}[leftmargin=2cm]
+    \item **射频前端（RF Frontend）**：负责接收和发送射频信号，包括低噪声放大器（LNA）、功率放大器（PA）、滤波器和混频器。
+    \item **模数/数模转换器（ADC/DAC）**：将模拟信号转换为数字信号（ADC）或将数字信号转换为模拟信号（DAC），是 SDR 灵活性的关键。
+    \item **数字处理单元（FPGA/ASIC）**：执行高速、确定的底层 DSP 算法，如数字下变频（DDC）、数字上变频（DUC）、滤波等。
+    \item **主控与接口**：通常由 ARM 或 x86 处理器组成，运行操作系统和上层应用，通过 USB/PCIe 等接口与 FPGA 通信。
+\end{itemize}
+
+\section{入门级：RTL-SDR}
+\label{sec:rtl_sdr_detail}
+
+RTL-SDR 是最普及的入门级 SDR，彻底改变了无线电爱好者的入门门槛。
+
+\subsection{基本原理}
+RTL-SDR 的硬件核心是 Realtek RTL2832U 芯片。该芯片最初是为 DVB-T/DAB 数字电视棒设计的，通过社区逆向工程，人们发现它可以被配置为输出原始的 I/Q（同相/正交）采样数据，成为一款功能强大的 SDR 接收器。
+
+\subsection{主要参数}
+\begin{itemize}[leftmargin=2cm]
+    \item **频率范围**：24 MHz ~ 1.7 GHz
+    \item **瞬时带宽**：最大约 2.4 MHz
+    \item **采样率**：最大 2.4 MSPS
+    \item **位深**：8 位 ADC
+    \item **接口**：USB 2.0
+    \item **参考价格**：10-30 美元
+\end{itemize}
+
+\subsection{优缺点}
+\textbf{优点}：极致廉价、体积小巧、生态丰富。
+\textbf{缺点}：仅支持接收、动态范围有限（~48 dB）、存在直流偏移、易受 USB 干扰。
+
+\subsection{进阶选择}
+\begin{itemize}[leftmargin=2cm]
+    \item **RTL-SDR Blog V3/V4**：改进版，采用 TCXO 温补晶振，频率稳定性更好，支持 ESD 保护。
+    \item **NooElec RTL-SDR**：另一个知名品牌的 RTL-SDR，做工较好。
+\end{itemize}
+
+\section{中低端：HackRF One}
+\label{sec:hackrf_one}
+
+HackRF One 是由 Michael Ossmann 设计的一款开源 SDR 平台，定位中低端，支持收发双向操作，是安全研究和无线实验的热门选择。
+
+\subsection{基本原理}
+使用 LMS7002M 芯片作为射频前端，通过直接变频（Zero-IF）架构实现收发。内置 ARM Cortex-M4 微控制器和 CPLD。
+
+\subsection{主要参数}
+\begin{itemize}[leftmargin=2cm]
+    \item **频率范围**：1 MHz ~ 6 GHz
+    \item **瞬时带宽**：最大 20 MHz
+    \item **采样率**：最大 20 MSPS
+    \item **位深**：8 位 ADC/DAC
+    \item **接口**：USB 2.0
+    \item **参考价格**：300-500 美元
+\end{itemize}
+
+\subsection{优缺点}
+\textbf{优点}：支持收发双向、频率范围极宽（覆盖到 6 GHz）、开源设计、功能强大（支持 GPS、扩展模块）。
+\textbf{缺点}：价格较高、动态范围有限、需要外接天线盒。
+
+\section{中高端：LimeSDR}
+\label{sec:limesdr_detail}
+
+LimeSDR 是基于 LMS7002M 芯片的另一款开源 SDR，性能优于 HackRF。
+
+\subsection{主要参数}
+\begin{itemize}[leftmargin=2cm]
+    \item **频率范围**：100 kHz ~ 3.8 GHz
+    \item **瞬时带宽**：最大 30.72 MHz
+    \item **采样率**：最大 61.44 MSPS
+    \item **位深**：12 位 ADC/DAC
+    \item **接口**：USB 3.0
+    \item **参考价格**：200-300 美元
+\end{itemize}
+
+\subsection{优缺点}
+\textbf{优点}：更高的动态范围（~72 dB）、更大的带宽、USB 3.0 接口、开源设计。
+\textbf{缺点}：软件生态和社区规模相对 HackRF 略小。
+
+\section{消费级高性能：SDRplay RSP 系列}
+\label{sec:sdrplay}
+
+SDRplay RSP 系列是面向消费级和业余爱好者的高性能 SDR 产品，以出色的接收性能和内置前端预选器著称。
+
+\subsection{主要型号}
+\begin{itemize}[leftmargin=2cm]
+    \item **RSPdx R2**：覆盖 1 kHz ~ 2 GHz，14 位 ADC，内置前端预选器滤波器，特别适合短波（SW）接收。
+    \item **RSP1A**：便携式 SDR，覆盖 10 MHz ~ 2 GHz，性价比高。
+    \item **RSPduo**：双调谐器 SDR，可以同时接收两个不同频率的信号。
+\end{itemize}
+
+\subsection{优缺点}
+\textbf{优点}：接收性能好（动态范围大、相位噪声低）、内置前端预选器（抑制镜像）、软件生态完善（SDRuno）。
+\textbf{缺点}：仅支持接收、价格较高（RSPdx 约 400 美元）。
+
+\section{入门收发一体：PlutoSDR}
+\label{sec:plutosdr_detail}
+
+ADALM-PLUTO (PlutoSDR) 是 Analog Devices 推出的入门级 SDR 套件，基于 AD9363 射频收发器。
+
+\subsection{主要参数}
+\begin{itemize}[leftmargin=2cm]
+    \item **频率范围**：325 MHz ~ 3.8 GHz（通过 hack 可扩展至更低频率）
+    \item **瞬时带宽**：最大 20 MHz
+    \item **采样率**：最大 61.44 MSPS
+    \item **位深**：12 位 ADC/DAC
+    \item **接口**：USB 2.0
+    \item **参考价格**：约 150 美元
+\end{itemize}
+
+\subsection{优缺点}
+\textbf{优点}：支持收发双向、价格适中、基于 AD9363 性能不错、支持扩展（通过 AD9361 升级）。
+\textbf{缺点}：带宽较窄（仅支持 $1\times1$ 收发通道）、频率下限较高（325 MHz，需 hack 才能降频）。
+
+\section{专业级：USRP 系列}
+\label{sec:usrp_detail}
+
+USRP (Universal Software Radio Peripheral) 是 Ettus Research（现属 NI）开发的专业级 SDR 平台，是学术界和工业界的事实标准。
+
+\subsection{主要系列}
+\begin{itemize}[leftmargin=2cm]
+    \item **USRP B 系列**：入门级 USB 接口，如 B200/B210，适合教学和原型开发。
+    \item **USRP N 系列**：中端双千兆以太网接口，如 N200/N210/N230，适合实时应用。
+    \item **USRP X 系列**：高性能 PCIe 接口，如 X300/X310/X410/X411，性能最强。
+    \item **USRP E 系列**：嵌入式处理，如 E310/E312，板载 FPGA 和 CPU。
+\end{itemize}
+
+\subsection{主要参数（以 USRP N310 为例）}
+\begin{itemize}[leftmargin=2cm]
+    \item **频率范围**：10 MHz ~ 6 GHz
+    \item **瞬时带宽**：最大 120 MHz
+    \item **采样率**：最大 120 MSPS
+    \item **位深**：14 位 ADC
+    \item **接口**：双千兆以太网
+    \item **参考价格**：数千至上万美元
+\end{itemize}
+
+\subsection{优缺点}
+\textbf{优点}：业界标杆、性能卓越、生态完善、稳定可靠。
+\textbf{缺点}：价格昂贵、体积庞大、功耗较高。
+
+\section{其他特色SDR平台}
+\label{sec:other_sdr}
+
+\begin{itemize}[leftmargin=2cm]
+    \item **Red Pitaya**：基于 Zynq-7020 的 SDR 平台，自带示波器和频谱分析仪功能，非常适合教学。
+    \item **bladeRF**：基于 LMS6002D 的 SDR 平台，频率覆盖 300 MHz ~ 3.8 GHz。
+    \item **Airspy**：高灵敏度 SDR 接收器，基于 R820T2 调谐器。
+    \item **HackRF Jawbreaker/GreatFET**：HackRF 的变体，专注于特定应用。
+\end{itemize}
+
+\section{SDR平台选型指南}
+\label{sec:sdr_selection}
+
+\begin{table}[htbp]
+\centering
+\caption{SDR 平台选型对比表}
+\label{tab:sdr_selection}
+\begin{tabular}{@{}lllp{4cm}l@{}}
+    \toprule
+    \textbf{级别} & \textbf{代表型号} & \textbf{收发} & \textbf{主要应用} & \textbf{参考价} \\
+    \midrule
+    入门 & RTL-SDR & 仅接收 & 学习、监听、频谱 & $10-30 \\$ \\
+    入门 & PlutoSDR & 收发 & 学习、无线通信实验 & $\sim150 \\$ \\
+    中端 & HackRF One & 收发 & 信号研究、无线电攻击 & $300-500 \\$ \\
+    中端 & LimeSDR & 收发 & 原型开发、宽带接收 & $200-300 \\$ \\
+    中高端 & SDRplay RSP & 仅接收 & DX 通信、专业接收 & $\sim400 \\$ \\
+    专业 & USRP B/N/X & 收发 & 学术、工业、军事 & 数千-数万 \\$ \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+% ================================================
+% 软件无线电（SDR） - 软件与开发
+% ================================================
 \chapter{SDR软件与开发}
 \label{chap:sdr_software}
 
