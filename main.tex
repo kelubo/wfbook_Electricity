@@ -2470,7 +2470,18 @@ $1.8\,\mathrm{MHz}$（160m）、$3.5\,\mathrm{MHz}$（80m）、$7\,\mathrm{MHz}$
 \section{电磁兼容与干扰}
 \label{sec:emc}
 
-电磁兼容（EMC, Electromagnetic Compatibility）指电子设备在共用电磁环境中能互不干扰地正常工作的能力——既要抗拒外来干扰（\textbf{抗扰度}），也不会向环境发射过多干扰（\textbf{发射限值}）。收音机本质上是一个"寻找弱信号"的设备，对 EMC 格外敏感。
+电磁兼容（EMC, Electro Magnetic Compatibility）指电子设备在共用电磁环境中能互不干扰地正常工作的能力——既要抗拒外来干扰（\textbf{抗扰度}），也不会向环境发射过多干扰（\textbf{发射限值}）。收音机本质上是一个"寻找弱信号"的设备，对 EMC 格外敏感。
+
+\subsection{EMC的两大对策：辐射对策与抗扰对策}
+
+解决噪声问题的思路可以归纳为两大方向，二者的综合构成了完整的 EMC 对策体系：
+
+\begin{itemize}[leftmargin=2cm]
+\item \textbf{辐射对策（Emission Control）}：从干扰源头入手，抑制噪声源向外发射噪声。例如为开关电源的开关节点加屏蔽、降低数字信号的边沿速率、在电源输出端加 LC 滤波、将 LED 驱动器封装于金属外壳等。辐射对策的核心是"不让噪声出去"。
+\item \textbf{抗扰对策（Immunity / Susceptibility Control）}：从受扰设备入手，提高设备抵抗外界噪声的能力，即使受到噪声影响也不至于产生误动作或故障。"抗扰"一词含有"免疫"的含义——正如病理学中的免疫，它是指设备对噪声的免疫力：受到噪声侵入时依然稳定工作。例如在信号线入口加 ESD 保护、使用差分信号传输、设计高 PSRR 的电源电路、使用具有同步检波能力的 DSP 接收机等。抗扰对策的核心是"不让噪声进来造成影响"。
+\end{itemize}
+
+民用电子设备的 EMC 标准体系中，通常同时对这两个维度作出规定：既要通过"发射测试"（确认设备不产生超出限值的噪声辐射和传导发射），也要通过"抗扰度测试"（确认设备在注入规定等级干扰时仍能正常工作）。对于收音机这类接收设备而言，由于其主要角色是"受扰者"，抗扰对策的重要性往往高于辐射对策；而对于开关电源、LED 驱动器、逆变电路等设备，辐射对策的优先级更高。
 
 \subsection{电磁干扰的来源与分类}
 
@@ -5632,14 +5643,14 @@ DAB——欧洲 Eureka 147 项目研发并于 1995 年首播——世界最早�
 
 \subsection{DSP核心概念}
 
-**DSP（Digital Signal Processing，数字信号处理）** 是现代电子技术的核心基石。在传统的模拟收音机中，选台、滤波、检波等功能是由**电感、电容、晶体管**等硬件电路实现的。而 DSP 的核心作用是将这些“硬件电路”的功能转化为“数学算法”，通过计算机或专用芯片对**数字化的信号**进行高速运算处理。
+\textbf{DSP（Digital Signal Processing，数字信号处理）} 是现代电子技术的核心基石。在传统的模拟收音机中，选台、滤波、检波等功能是由\textbf{电感、电容、晶体管}等硬件电路实现的。而 DSP 的核心作用是将这些“硬件电路”的功能转化为“数学算法”，通过计算机或专用芯片对\textbf{数字化的信号}进行高速运算处理。
 
 具体来说，DSP 主要解决以下问题：
 \begin{enumerate}[leftmargin=2cm]
-    \item **精准的信号筛选（滤波）**：无线电空间中充满了各种频率的信号。DSP 可以通过编写算法（如 FIR/IIR 滤波器），精确地“剪出”你想要的电台频率，滤除干扰。这比模拟滤波器更锐利、更可控。
-    \item **软件化的调制与解调**：无论是 AM、FM 还是更复杂的数字信号（如 DAB），都可以通过 DSP 算法灵活实现，而不需要更换硬件。
-    \item **数据压缩与编码**：将声音、图像等模拟信号转化为数字形式，并压缩成 MP3、H.264 等格式，便于存储和传输。
-    \item **实时、高吞吐量处理**：通过专用 DSP 芯片（如 TI 的 C6000 系列）或 FPGA，处理海量数据，实现低延迟的通信。
+    \item \textbf{精准的信号筛选（滤波）}：无线电空间中充满了各种频率的信号。DSP 可以通过编写算法（如 FIR/IIR 滤波器），精确地“剪出”你想要的电台频率，滤除干扰。这比模拟滤波器更锐利、更可控。
+    \item \textbf{软件化的调制与解调}：无论是 AM、FM 还是更复杂的数字信号（如 DAB），都可以通过 DSP 算法灵活实现，而不需要更换硬件。
+    \item \textbf{数据压缩与编码}：将声音、图像等模拟信号转化为数字形式，并压缩成 MP3、H.264 等格式，便于存储和传输。
+    \item \textbf{实时、高吞吐量处理}：通过专用 DSP 芯片（如 TI 的 C6000 系列）或 FPGA，处理海量数据，实现低延迟的通信。
 \end{enumerate}
 
 \subsection{DSP收音机原理}
@@ -5648,12 +5659,12 @@ DSP 收音机在中频阶段将信号经 ADC 数字化——在数字域用软�
 
 \subsection{DSP与SDR：从硬件通用化到算法定义}
 
-在本书的语境中，DSP 技术的发展直接推动了**软件无线电（SDR）**的诞生，实现了从“硬件搭建”到“算法定义”的跨越：
+在本书的语境中，DSP 技术的发展直接推动了\textbf{软件无线电（SDR）}的诞生，实现了从“硬件搭建”到“算法定义”的跨越：
 
 \begin{itemize}[leftmargin=2cm]
-    \item **硬件通用化**：SDR 设备（如 HackRF, RTL-SDR）的硬件只负责“高速采集”和“高速回放”。真正决定它是收音机、对讲机还是卫星接收器的，是在 CPU/FPGA 上运行的 **DSP 算法（代码）**。
-    \item **极致灵活性**：一台 SDR 可以兼收 AM/FM/短波/卫星，只需在软件中切换不同的 DSP 处理流程，无需改动硬件。
-    \item **可升级性**：通过固件升级（更新 DSP 算法），老旧的硬件可以获得新的功能，延长产品生命周期。
+    \item \textbf{硬件通用化}：SDR 设备（如 HackRF, RTL-SDR）的硬件只负责“高速采集”和“高速回放”。真正决定它是收音机、对讲机还是卫星接收器的，是在 CPU/FPGA 上运行的 \textbf{DSP 算法（代码）}。
+    \item \textbf{极致灵活性}：一台 SDR 可以兼收 AM/FM/短波/卫星，只需在软件中切换不同的 DSP 处理流程，无需改动硬件。
+    \item \textbf{可升级性}：通过固件升级（更新 DSP 算法），老旧的硬件可以获得新的功能，延长产品生命周期。
 \end{itemize}
 
 \subsection{SI4730/4735}
@@ -5855,10 +5866,10 @@ SDR 硬件是实现软件无线电的物理载体。本章将对目前主流的 
 
 SDR 硬件通常由以下几个核心部分组成：
 \begin{itemize}[leftmargin=2cm]
-    \item **射频前端（RF Frontend）**：负责接收和发送射频信号，包括低噪声放大器（LNA）、功率放大器（PA）、滤波器和混频器。
-    \item **模数/数模转换器（ADC/DAC）**：将模拟信号转换为数字信号（ADC）或将数字信号转换为模拟信号（DAC），是 SDR 灵活性的关键。
-    \item **数字处理单元（FPGA/ASIC）**：执行高速、确定的底层 DSP 算法，如数字下变频（DDC）、数字上变频（DUC）、滤波等。
-    \item **主控与接口**：通常由 ARM 或 x86 处理器组成，运行操作系统和上层应用，通过 USB/PCIe 等接口与 FPGA 通信。
+    \item \textbf{射频前端（RF Frontend）}：负责接收和发送射频信号，包括低噪声放大器（LNA）、功率放大器（PA）、滤波器和混频器。
+    \item \textbf{模数/数模转换器（ADC/DAC）}：将模拟信号转换为数字信号（ADC）或将数字信号转换为模拟信号（DAC），是 SDR 灵活性的关键。
+    \item \textbf{数字处理单元（FPGA/ASIC）}：执行高速、确定的底层 DSP 算法，如数字下变频（DDC）、数字上变频（DUC）、滤波等。
+    \item \textbf{主控与接口}：通常由 ARM 或 x86 处理器组成，运行操作系统和上层应用，通过 USB/PCIe 等接口与 FPGA 通信。
 \end{itemize}
 
 \section{入门级：RTL-SDR}
@@ -5885,8 +5896,8 @@ RTL-SDR 的硬件核心是 Realtek RTL2832U 芯片。该芯片最初是为 DVB-T
 
 \subsection{进阶选择}
 \begin{itemize}[leftmargin=2cm]
-    \item **RTL-SDR Blog V3/V4**：改进版，采用 TCXO 温补晶振，频率稳定性更好，支持 ESD 保护。
-    \item **NooElec RTL-SDR**：另一个知名品牌的 RTL-SDR，做工较好。
+    \item \textbf{RTL-SDR Blog V3/V4}：改进版，采用 TCXO 温补晶振，频率稳定性更好，支持 ESD 保护。
+    \item \textbf{NooElec RTL-SDR}：另一个知名品牌的 RTL-SDR，做工较好。
 \end{itemize}
 
 \section{中低端：HackRF One}
@@ -5937,9 +5948,9 @@ SDRplay RSP 系列是面向消费级和业余爱好者的高性能 SDR 产品，
 
 \subsection{主要型号}
 \begin{itemize}[leftmargin=2cm]
-    \item **RSPdx R2**：覆盖 1 kHz ~ 2 GHz，14 位 ADC，内置前端预选器滤波器，特别适合短波（SW）接收。
-    \item **RSP1A**：便携式 SDR，覆盖 10 MHz ~ 2 GHz，性价比高。
-    \item **RSPduo**：双调谐器 SDR，可以同时接收两个不同频率的信号。
+    \item \textbf{RSPdx R2}：覆盖 1 kHz ~ 2 GHz，14 位 ADC，内置前端预选器滤波器，特别适合短波（SW）接收。
+    \item \textbf{RSP1A}：便携式 SDR，覆盖 10 MHz ~ 2 GHz，性价比高。
+    \item \textbf{RSPduo}：双调谐器 SDR，可以同时接收两个不同频率的信号。
 \end{itemize}
 
 \subsection{优缺点}
@@ -5972,10 +5983,10 @@ USRP (Universal Software Radio Peripheral) 是 Ettus Research（现属 NI）开�
 
 \subsection{主要系列}
 \begin{itemize}[leftmargin=2cm]
-    \item **USRP B 系列**：入门级 USB 接口，如 B200/B210，适合教学和原型开发。
-    \item **USRP N 系列**：中端双千兆以太网接口，如 N200/N210/N230，适合实时应用。
-    \item **USRP X 系列**：高性能 PCIe 接口，如 X300/X310/X410/X411，性能最强。
-    \item **USRP E 系列**：嵌入式处理，如 E310/E312，板载 FPGA 和 CPU。
+    \item \textbf{USRP B 系列}：入门级 USB 接口，如 B200/B210，适合教学和原型开发。
+    \item \textbf{USRP N 系列}：中端双千兆以太网接口，如 N200/N210/N230，适合实时应用。
+    \item \textbf{USRP X 系列}：高性能 PCIe 接口，如 X300/X310/X410/X411，性能最强。
+    \item \textbf{USRP E 系列}：嵌入式处理，如 E310/E312，板载 FPGA 和 CPU。
 \end{itemize}
 
 \subsection{主要参数（以 USRP N310 为例）}
@@ -5996,10 +6007,10 @@ USRP (Universal Software Radio Peripheral) 是 Ettus Research（现属 NI）开�
 \label{sec:other_sdr}
 
 \begin{itemize}[leftmargin=2cm]
-    \item **Red Pitaya**：基于 Zynq-7020 的 SDR 平台，自带示波器和频谱分析仪功能，非常适合教学。
-    \item **bladeRF**：基于 LMS6002D 的 SDR 平台，频率覆盖 300 MHz ~ 3.8 GHz。
-    \item **Airspy**：高灵敏度 SDR 接收器，基于 R820T2 调谐器。
-    \item **HackRF Jawbreaker/GreatFET**：HackRF 的变体，专注于特定应用。
+    \item \textbf{Red Pitaya}：基于 Zynq-7020 的 SDR 平台，自带示波器和频谱分析仪功能，非常适合教学。
+    \item \textbf{bladeRF}：基于 LMS6002D 的 SDR 平台，频率覆盖 300 MHz ~ 3.8 GHz。
+    \item \textbf{Airspy}：高灵敏度 SDR 接收器，基于 R820T2 调谐器。
+    \item \textbf{HackRF Jawbreaker/GreatFET}：HackRF 的变体，专注于特定应用。
 \end{itemize}
 
 \section{SDR平台选型指南}
@@ -6051,10 +6062,10 @@ GNU Radio 是 SDR 领域最核心的开源软件开发框架——Python 脚本 
 
 \textbf{流图设计思路}：
 \begin{enumerate}[leftmargin=2cm]
-    \item **信号源**：使用 \texttt{Osmocom Source} 模块（RTL-SDR 驱动），调谐到目标 FM 频率（如 93.5 MHz），采样率设为 2.4 MSPS。
-    \item **下变频与滤波**：使用 \texttt{Frequency Shifter} 将信号搬移到零频，然后用 \texttt{Low Pass Filter} 滤除带外干扰。
-    \item **解调**：使用 \texttt{FM Demod} 模块完成频率解调，将角度调制信号转换为音频信号。
-    \item **音频输出**：使用 \texttt{Audio Sink} 将音频信号输出到声卡。
+    \item \textbf{信号源}：使用 \texttt{Osmocom Source} 模块（RTL-SDR 驱动），调谐到目标 FM 频率（如 93.5 MHz），采样率设为 2.4 MSPS。
+    \item \textbf{下变频与滤波}：使用 \texttt{Frequency Shifter} 将信号搬移到零频，然后用 \texttt{Low Pass Filter} 滤除带外干扰。
+    \item \textbf{解调}：使用 \texttt{FM Demod} 模块完成频率解调，将角度调制信号转换为音频信号。
+    \item \textbf{音频输出}：使用 \texttt{Audio Sink} 将音频信号输出到声卡。
 \end{enumerate}
 
 \textbf{GRC 流图关键参数}：
@@ -6110,10 +6121,10 @@ SSB（单边带）是业余无线电（Ham Radio）和短波通信的常用调�
 
 \textbf{流图设计思路}：
 \begin{enumerate}[leftmargin=2cm]
-    \item **信号源**：RTL-SDR 采集 HF 频段（如 7 MHz）的 SSB 信号。
-    \item **窄带滤波**：使用 \texttt{Band Pass Filter} 选择 SSB 信号（约 3 kHz 带宽）。
-    \item **乘积检波**：使用 \texttt{Multiply} 模块与 NCO（数字控制振荡器）相乘，恢复音频。
-    \item **低通滤波**：滤除高频分量，得到原始音频。
+    \item \textbf{信号源}：RTL-SDR 采集 HF 频段（如 7 MHz）的 SSB 信号。
+    \item \textbf{窄带滤波}：使用 \texttt{Band Pass Filter} 选择 SSB 信号（约 3 kHz 带宽）。
+    \item \textbf{乘积检波}：使用 \texttt{Multiply} 模块与 NCO（数字控制振荡器）相乘，恢复音频。
+    \item \textbf{低通滤波}：滤除高频分量，得到原始音频。
 \end{enumerate}
 
 \textbf{GRC 流图关键参数}：
@@ -6137,10 +6148,10 @@ GNU Radio 还支持解调各种数字通信协议，这是 SDR 的核心能力�
 
 \textbf{常用数字解调模块}：
 \begin{itemize}[leftmargin=2cm]
-    \item **POCSAG 解码器**：用于接收寻呼机信号，频率 137 MHz。
-    \item **DMR 解码器**：用于接收数字对讲机信号，频率 435 MHz 频段。
-    \item **APCO-25 解码器**：用于接收公共安全通信信号。
-    \item **AX.25 解码器**：用于接收业余无线电报（Packet Radio）信号。
+    \item \textbf{POCSAG 解码器}：用于接收寻呼机信号，频率 137 MHz。
+    \item \textbf{DMR 解码器}：用于接收数字对讲机信号，频率 435 MHz 频段。
+    \item \textbf{APCO-25 解码器}：用于接收公共安全通信信号。
+    \item \textbf{AX.25 解码器}：用于接收业余无线电报（Packet Radio）信号。
 \end{itemize}
 
 \textbf{示例：AX.25 数据包接收}：
@@ -6218,20 +6229,20 @@ librtlsdr 是 C 库——直接与 rtl-sdr 底层通讯——性能最高应用�
 \subsection{天线的基本参数}
 \begin{itemize}[leftmargin=2cm]
     \item \textbf{频率范围}：天线能有效工作的频率区间。SDR 天线需要覆盖目标频段。
-    \item **带宽**：天线驻波比（VSWR）≤ 1.5 的频率范围，覆盖越宽越好。
+    \item \textbf{带宽}：天线驻波比（VSWR）≤ 1.5 的频率范围，覆盖越宽越好。
     \item \textbf{增益}：天线在特定方向上的辐射/接收能力，用 dBi 表示。
-    \item **方向图**：天线辐射/接收方向的空间分布。
-    \item **极化方式**：电磁波的电场方向，分为线极化（水平/垂直）和圆极化。
-    \item **阻抗**：天线的输入阻抗，通常为 50 Ω，需与 SDR 硬件匹配。
-    \item **VSWR（电压驻波比）**：衡量天线与馈线阻抗匹配程度的指标，理想值为 1.0。
+    \item \textbf{方向图}：天线辐射/接收方向的空间分布。
+    \item \textbf{极化方式}：电磁波的电场方向，分为线极化（水平/垂直）和圆极化。
+    \item \textbf{阻抗}：天线的输入阻抗，通常为 50 Ω，需与 SDR 硬件匹配。
+    \item \textbf{VSWR（电压驻波比）}：衡量天线与馈线阻抗匹配程度的指标，理想值为 1.0。
 \end{itemize}
 
 \subsection{SDR对天线的要求}
 \begin{itemize}[leftmargin=2cm]
-    \item **宽频段**：SDR 的优势在于宽频段覆盖，天线也应尽可能宽频。
-    \item **高灵敏度**：SDR 通常接收微弱信号，天线噪声温度要低。
-    \item **可移动性**：便携 SDR 要求天线便于携带和快速架设。
-    \item **抗干扰**：在电磁环境复杂的城市，需要良好的方向性以抑制干扰。
+    \item \textbf{宽频段}：SDR 的优势在于宽频段覆盖，天线也应尽可能宽频。
+    \item \textbf{高灵敏度}：SDR 通常接收微弱信号，天线噪声温度要低。
+    \item \textbf{可移动性}：便携 SDR 要求天线便于携带和快速架设。
+    \item \textbf{抗干扰}：在电磁环境复杂的城市，需要良好的方向性以抑制干扰。
 \end{itemize}
 
 \section{常用SDR天线类型}
@@ -6317,10 +6328,10 @@ librtlsdr 是 C 库——直接与 rtl-sdr 底层通讯——性能最高应用�
 
 \subsection{ATU的类型}
 \begin{itemize}[leftmargin=2cm]
-    \item **手动 ATU**：通过旋钮或开关手动调整电感和电容，适合固定频率或少量频率点。
-    \item **自动 ATU**：内置处理器，自动搜索最佳匹配网络，SDR 软件可通过串口控制。
-    \item **无源 ATU**：纯被动元件，无需供电，可靠性高但调节较繁琐。
-    \item **有源 ATU**：含放大器，可提升接收灵敏度，但增加噪声。
+    \item \textbf{手动 ATU}：通过旋钮或开关手动调整电感和电容，适合固定频率或少量频率点。
+    \item \textbf{自动 ATU}：内置处理器，自动搜索最佳匹配网络，SDR 软件可通过串口控制。
+    \item \textbf{无源 ATU}：纯被动元件，无需供电，可靠性高但调节较繁琐。
+    \item \textbf{有源 ATU}：含放大器，可提升接收灵敏度，但增加噪声。
 \end{itemize}
 
 \subsection{SDR与ATU的配合}
@@ -6337,28 +6348,28 @@ librtlsdr 是 C 库——直接与 rtl-sdr 底层通讯——性能最高应用�
 同轴电缆是 SDR 系统中最常用的馈线类型，由内导体、介质、外导体和护套组成。
 
 \begin{itemize}[leftmargin=2cm]
-    \item **常用类型**：RG-58、RG-8X、RG-213、LMR-400。
-    \item **损耗**：频率越高损耗越大。HF 频段电缆损耗小，UHF/VHF 需选择低损耗电缆。
-    \item **阻抗**：50 Ω（标准 SDR 阻抗）。
-    \item **长度**：馈线过长会增加损耗，应尽量缩短。
+    \item \textbf{常用类型}：RG-58、RG-8X、RG-213、LMR-400。
+    \item \textbf{损耗}：频率越高损耗越大。HF 频段电缆损耗小，UHF/VHF 需选择低损耗电缆。
+    \item \textbf{阻抗}：50 Ω（标准 SDR 阻抗）。
+    \item \textbf{长度}：馈线过长会增加损耗，应尽量缩短。
 \end{itemize}
 
 \subsection{连接器}
 常用的 RF 连接器包括 SMA、N、BNC、U.FL 等。
 
 \begin{itemize}[leftmargin=2cm]
-    \item **SMA**：小型连接器，适合便携式 SDR，支持最高 18 GHz。
-    \item **N 型**：中型连接器，适合中大功率和较高频率，支持最高 18 GHz。
-    \item **BNC**：快速插拔连接器，适合测试和临时连接，支持最高 4 GHz。
-    \item **U.FL**：超小型连接器，适合空间受限的设备。
+    \item \textbf{SMA}：小型连接器，适合便携式 SDR，支持最高 18 GHz。
+    \item \textbf{N 型}：中型连接器，适合中大功率和较高频率，支持最高 18 GHz。
+    \item \textbf{BNC}：快速插拔连接器，适合测试和临时连接，支持最高 4 GHz。
+    \item \textbf{U.FL}：超小型连接器，适合空间受限的设备。
 \end{itemize}
 
 \subsection{避免的问题}
 \begin{itemize}[leftmargin=2cm]
-    \item **阻抗不匹配**：所有连接器和馈线必须为 50 Ω。
-    \item **VSWR 过高**：使用 VSWR 计检查匹配，应保持 VSWR < 2.0。
-    \item **机械应力**：避免连接器弯曲或受到过大拉力。
-    \item **潮湿侵入**：户外使用必须做好防水密封。
+    \item \textbf{阻抗不匹配}：所有连接器和馈线必须为 50 Ω。
+    \item \textbf{VSWR 过高}：使用 VSWR 计检查匹配，应保持 VSWR < 2.0。
+    \item \textbf{机械应力}：避免连接器弯曲或受到过大拉力。
+    \item \textbf{潮湿侵入}：户外使用必须做好防水密封。
 \end{itemize}
 
 \section{天线架设指南}
@@ -6366,35 +6377,35 @@ librtlsdr 是 C 库——直接与 rtl-sdr 底层通讯——性能最高应用�
 
 \subsection{便携式SDR天线架设}
 \begin{itemize}[leftmargin=2cm]
-    \item **城市环境**：使用鞭状天线或小环形天线，尽量靠近窗户或阳台。
-    \item **野外环境**：使用偶极子天线或盘锥天线，架设在高处。
-    \item **短波接收**：使用长线天线，架设在两树之间，长度至少 5 米。
+    \item \textbf{城市环境}：使用鞭状天线或小环形天线，尽量靠近窗户或阳台。
+    \item \textbf{野外环境}：使用偶极子天线或盘锥天线，架设在高处。
+    \item \textbf{短波接收}：使用长线天线，架设在两树之间，长度至少 5 米。
 \end{itemize}
 
 \subsection{固定SDR台架设}
 \begin{itemize}[leftmargin=2cm]
-    \item **位置选择**：远离干扰源（电视、手机塔、高压线），尽量架设在屋顶。
-    \item **高度**：天线越高，视距越远，接收效果越好。
-    \item **方向**：定向天线应指向目标信号源方向。
-    \item **接地**：HF 天线需要良好的接地系统（地网或地棒）。
+    \item \textbf{位置选择}：远离干扰源（电视、手机塔、高压线），尽量架设在屋顶。
+    \item \textbf{高度}：天线越高，视距越远，接收效果越好。
+    \item \textbf{方向}：定向天线应指向目标信号源方向。
+    \item \textbf{接地}：HF 天线需要良好的接地系统（地网或地棒）。
 \end{itemize}
 
 \subsection{电磁干扰屏蔽}
 \begin{itemize}[leftmargin=2cm]
-    \item **识别干扰源**：使用 SDR 的频谱分析功能识别干扰源。
-    \item **共模扼流圈**：在馈线上加装共模扼流圈，抑制共模干扰。
-    \item **滤波器**：在 SDR 前端加装带通滤波器，抑制带外干扰。
-    \item **屏蔽**：使用同轴电缆（本身具有屏蔽功能），避免平行导线。
+    \item \textbf{识别干扰源}：使用 SDR 的频谱分析功能识别干扰源。
+    \item \textbf{共模扼流圈}：在馈线上加装共模扼流圈，抑制共模干扰。
+    \item \textbf{滤波器}：在 SDR 前端加装带通滤波器，抑制带外干扰。
+    \item \textbf{屏蔽}：使用同轴电缆（本身具有屏蔽功能），避免平行导线。
 \end{itemize}
 
 \section{天线调试工具}
 \label{sec:antenna_test}
 
 \begin{itemize}[leftmargin=2cm]
-    \item **VSWR 计**：测量天线驻波比，判断阻抗匹配。
-    \item **天线分析仪**：矢量网络分析仪，可测量天线的 S 参数和阻抗。
-    \item **频谱分析仪**：检查天线的频率响应。
-    \item **Noise Figure Meter**：测量系统噪声系数。
+    \item \textbf{VSWR 计}：测量天线驻波比，判断阻抗匹配。
+    \item \textbf{天线分析仪}：矢量网络分析仪，可测量天线的 S 参数和阻抗。
+    \item \textbf{频谱分析仪}：检查天线的频率响应。
+    \item \textbf{Noise Figure Meter}：测量系统噪声系数。
 \end{itemize}
 
 \textbf{自制天线分析仪}：
@@ -6485,9 +6496,9 @@ ADS-B（Automatic Dependent Surveillance-Broadcast，自动相关监视广播）
 
 \textbf{搭建 ADS-B 接收系统}：
 \begin{enumerate}[leftmargin=2cm]
-    \item **硬件**：RTL-SDR（或 Airspy、SDRplay）+ 1090 MHz 专用天线
-    \item **软件**：dump1090（标准 ADS-B 解码软件）+ 前端可视化（如 SkyAware、FlightRadar24）
-    \item **系统架构**：SDR → dump1090 → 本地 Web 服务器（显示飞机位置地图）
+    \item \textbf{硬件}：RTL-SDR（或 Airspy、SDRplay）+ 1090 MHz 专用天线
+    \item \textbf{软件}：dump1090（标准 ADS-B 解码软件）+ 前端可视化（如 SkyAware、FlightRadar24）
+    \item \textbf{系统架构}：SDR → dump1090 → 本地 Web 服务器（显示飞机位置地图）
 \end{enumerate}
 
 \textbf{安装与配置（Linux 示例）}：
@@ -6506,16 +6517,16 @@ make
 
 \textbf{ADS-B 天线选择}：
 \begin{itemize}[leftmargin=2cm]
-    \item **推荐**：1090 MHz 专用天线（八分之五波长偶极子或垂直天线）
-    \item **替代**：通用 SDR 天线 + 1090 MHz 带通滤波器
-    \item **架设**：天线越高，接收距离越远，建议架设在屋顶
+    \item \textbf{推荐}：1090 MHz 专用天线（八分之五波长偶极子或垂直天线）
+    \item \textbf{替代}：通用 SDR 天线 + 1090 MHz 带通滤波器
+    \item \textbf{架设}：天线越高，接收距离越远，建议架设在屋顶
 \end{itemize}
 
 \textbf{数据可视化与共享}：
 \begin{itemize}[leftmargin=2cm]
-    \item **本地可视化**：dump1090 自带 Web 界面，显示周边飞机
-    \item **FlightRadar24**：注册账号后，将接收到的 ADS-B 数据上传到 FR24 服务器，获得全球飞机追踪
-    \item **其他平台**：ADS-B Exchange、Planefinder、FlightAware
+    \item \textbf{本地可视化}：dump1090 自带 Web 界面，显示周边飞机
+    \item \textbf{FlightRadar24}：注册账号后，将接收到的 ADS-B 数据上传到 FR24 服务器，获得全球飞机追踪
+    \item \textbf{其他平台}：ADS-B Exchange、Planefinder、FlightAware
 \end{itemize}
 
 \subsection{AIS 船舶追踪}
@@ -6532,23 +6543,23 @@ AIS（Automatic Identification System，自动识别系统）是船舶的类似 
 
 \textbf{搭建 AIS 接收系统}：
 \begin{enumerate}[leftmargin=2cm]
-    \item **硬件**：RTL-SDR + VHF 天线（162 MHz 专用）
-    \item **软件**：AISmon、AIVDM 解码器、或 GNU Radio 流图
-    \item **系统架构**：SDR → AIS 解码器 → 可视化界面
+    \item \textbf{硬件}：RTL-SDR + VHF 天线（162 MHz 专用）
+    \item \textbf{软件}：AISmon、AIVDM 解码器、或 GNU Radio 流图
+    \item \textbf{系统架构}：SDR → AIS 解码器 → 可视化界面
 \end{enumerate}
 
 \textbf{AIS 天线选择}：
 \begin{itemize}[leftmargin=2cm]
-    \item **专用天线**：162 MHz 偶极子或垂直天线
-    \item **替代**：双频（VHF/UHF）天线 + 162 MHz 带通滤波器
-    \item **注意**：AIS 信号较弱，建议使用增益较高的天线
+    \item \textbf{专用天线}：162 MHz 偶极子或垂直天线
+    \item \textbf{替代}：双频（VHF/UHF）天线 + 162 MHz 带通滤波器
+    \item \textbf{注意}：AIS 信号较弱，建议使用增益较高的天线
 \end{itemize}
 
 \textbf{AIS 数据可视化与共享}：
 \begin{itemize}[leftmargin=2cm]
-    \item **MarineTraffic**：全球船舶追踪网站，可上传 AIS 数据
-    \item **AISHub**：AIS 数据共享社区
-    \item **本地显示**：使用 OpenCPN（开源海图软件）显示船舶位置
+    \item \textbf{MarineTraffic}：全球船舶追踪网站，可上传 AIS 数据
+    \item \textbf{AISHub}：AIS 数据共享社区
+    \item \textbf{本地显示}：使用 OpenCPN（开源海图软件）显示船舶位置
 \end{itemize}
 
 \subsection{ADS-B 与 AIS 的对比}
@@ -6577,9 +6588,9 @@ AIS（Automatic Identification System，自动识别系统）是船舶的类似 
 
 单个 SDR 接收站的覆盖范围有限（视距 50-250 km），通过建立多站网络可以实现更大范围的覆盖。
 \begin{itemize}[leftmargin=2cm]
-    \item **ADS-B 网络**：ADS-B Exchange 是全球最大的 ADS-B 数据共享网络，每个站点都能从其他站点获取数据
-    \item **AIS 网络**：AISHub 和 MarineTraffic 都支持多站数据融合
-    \item **自建网络**：使用 MQTT 或 LoRa 建立本地 ADS-B/AIS 网络
+    \item \textbf{ADS-B 网络}：ADS-B Exchange 是全球最大的 ADS-B 数据共享网络，每个站点都能从其他站点获取数据
+    \item \textbf{AIS 网络}：AISHub 和 MarineTraffic 都支持多站数据融合
+    \item \textbf{自建网络}：使用 MQTT 或 LoRa 建立本地 ADS-B/AIS 网络
 \end{itemize}
 
 \subsection{安全与隐私}
@@ -7013,10 +7024,10 @@ hackrf_info
 
 \subsection{其他 SDR 驱动}
 \begin{itemize}[leftmargin=2cm]
-    \item **LimeSDR**：使用 Zadig 或安装官方驱动。
-    \item **USRP**：安装 Ettus Research 的 UHD 软件包（Python + C++ API）。
-    \item **PlutoSDR**：使用 ADI 官方驱动或 SoapySDR 驱动。
-    \item **Airspy**：使用 Airspy 官方驱动。
+    \item \textbf{LimeSDR}：使用 Zadig 或安装官方驱动。
+    \item \textbf{USRP}：安装 Ettus Research 的 UHD 软件包（Python + C++ API）。
+    \item \textbf{PlutoSDR}：使用 ADI 官方驱动或 SoapySDR 驱动。
+    \item \textbf{Airspy}：使用 Airspy 官方驱动。
 \end{itemize}
 
 \section{Linux 平台}
@@ -7093,9 +7104,9 @@ rtl_test
 
 \subsection{其他 SDR 驱动}
 \begin{itemize}[leftmargin=2cm]
-    \item **HackRF**：brew install hackrf
-    \item **USRP**：brew install uhd
-    \item **LimeSDR**：brew install limesdr
+    \item \textbf{HackRF}：brew install hackrf
+    \item \textbf{USRP}：brew install uhd
+    \item \textbf{LimeSDR}：brew install limesdr
 \end{itemize}
 
 % ================================================
@@ -7165,10 +7176,10 @@ rtl_test
 \subsection{Q: dump1090 和其他 ADS-B 软件如何选择？}
 \textbf{A:}
 \begin{itemize}[leftmargin=2cm]
-    \item **dump1090**：最经典的开源软件，稳定可靠。
-    \item **readsb**：dump1090 的分支，性能更好，维护更活跃。
-    \item **dump1090-fa**：FlightAware 官方版本，功能完善。
-    \item **piaware**：树莓派上最流行的 ADS-B 方案。
+    \item \textbf{dump1090}：最经典的开源软件，稳定可靠。
+    \item \textbf{readsb}：dump1090 的分支，性能更好，维护更活跃。
+    \item \textbf{dump1090-fa}：FlightAware 官方版本，功能完善。
+    \item \textbf{piaware}：树莓派上最流行的 ADS-B 方案。
 \end{itemize}
 
 % ================================================
