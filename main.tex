@@ -4274,6 +4274,41 @@ Gordon Moore（Intel 共同创始人在 1965 年观测到集成电路中的晶�
 \item \textbf{BiCMOS}融合双极的高速和模拟性能与 CMOS 的低数字功耗——是单片收音机 SoC 的标准工艺
 \end{enumerate}
 
+\subsection{按集成规模分类}
+
+数字 IC 按集成度（门数或等效门数）分为五个等级，反映了半导体工艺从小到大的演进历程：
+
+\begin{table}[htbp]
+\centering
+\caption{数字IC按集成规模分类}
+\label{tab:ic_scale}
+\begin{tabular}{@{}llp{5cm}@{}}
+    \toprule
+    \textbf{分类} & \textbf{门数范围} & \textbf{典型IC} \\
+    \midrule
+    小规模 SSI & 1$\sim$12 & 逻辑门（74系列、CD4000系列）、触发器 \\
+    中规模 MSI & 12$\sim$99 & 计数器、加法器、译码器、数据选择器 \\
+    大规模 LSI & 100$\sim$9999 & 小型存储器、门阵列、早期微处理器 \\
+    超大规模 VLSI & $10^4\sim10^6$ & 大型存储器、32位微处理器、DSP \\
+    甚大规模 ULSI & $10^6$以上 & 现代多核CPU、GPU、SoC、FPGA \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{说明}：随着工艺进步，现代高端处理器（如手机SoC）晶体管数已达百亿级别，ULSI与VLSI的界限已模糊，业界通常统称VLSI。摩尔定律推动下，集成度每18$\sim$24个月翻一番。
+
+\subsection{IC产业的企业模式}
+
+集成电路产业经过数十年发展，形成了三种典型的企业运营模式：
+
+\begin{itemize}[leftmargin=2cm]
+\item \textbf{IDM（Integrated Device Manufacturer，垂直整合制造商）}：从设计、制造、封装测试到销售全流程独立完成的企业。代表：Intel、Samsung、TI（德州仪器）、ST（意法半导体）。优势是内部协同效率高、技术保密性好；劣势是重资产、投资巨大。
+\item \textbf{Fabless（无晶圆厂设计公司）}：专注于芯片设计，将制造环节委托给Foundry代工。代表：Qualcomm、NVIDIA、AMD、海思、联发科。优势是轻资产、灵活高效；劣势是依赖代工厂产能。
+\item \textbf{Foundry（晶圆代工厂）}：专注于芯片制造，为Fabless客户提供代工服务，不做自有品牌芯片设计。代表：TSMC（台积电）、UMC（联电）、SMIC（中芯国际）、GlobalFoundries。优势是规模效应、工艺积累深；劣势是资本密集、周期性强。
+\end{itemize}
+
+此外还有\textbf{Chipless}（无芯片设计公司，如ARM只卖IP授权）和\textbf{OSAT}（外包封测厂商，如日月光、长电科技）等细分模式。
+
 \section{集成电路封装}
 \label{sec:ic_package}
 
@@ -4573,7 +4608,33 @@ MCU 在收音机中的应用典型功能：
 
 \textbf{Arduino}——最简入微——C++ 编写"setup()+loop()"，现成的宽库生态（Wire 库做 I²C 通讯、TEA5767/RDA5807 库）。只需将 Arduino Nano + FM 芯片模块+ LCD 连接写几行代码，即可制作数字调谐收音机。\textbf{STM32}——更强大（32-bit ARM Cortex-M），I2C/SPI 接口全部硬件级带 DMA（不消耗 CPU 即可 FFT/扫描解码）、内置 ADC可直接对中频信号采样做简单 DSP。用 CubeIDE 开发平台配合 HAL 驱动程序——STM32 "Blue Pill" 加上 Si4735 接收模块构成高性能全频数字接收机。推荐学习顺序：Arduino→简单频率调谐器→SDR 信号扫描。
 
+\subsection{实时时钟芯片（RTC）}
+\label{subsec:rtc_chips}
 
+实时时钟（Real-Time Clock, RTC）芯片为嵌入式系统提供精确的年月日时分秒计时，即使主系统断电也能依靠后备电池维持走时。RTC 在收音机中用于定时开关机、电台预约录制、频率日志时间戳等功能。常用 RTC 芯片如下：
+
+\begin{table}[htbp]
+\centering
+\caption{常用实时时钟芯片对比}
+\label{tab:rtc_chips}
+\begin{tabular}{@{}llp{4cm}p{4cm}@{}}
+    \toprule
+    \textbf{型号} & \textbf{接口} & \textbf{主要特性} & \textbf{典型应用} \\
+    \midrule
+    DS1302 & 3线串行 & 慢速、简单、内置涓流充电 & 早期单片机项目、教学 \\
+    DS1307 & I$^2$C & 经典标准、56字节NV SRAM & Arduino项目、通用计时 \\
+    DS3231 & I$^2$C & 内置TCXO温补晶振、高精度 & 精密计时、数据记录 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{DS1302}：Dallas Semiconductor（现属TI）早期产品，采用3线串行接口（CE/SCLK/I-O），速度较慢但电路简单。内置涓流充电（Trickle Charge）功能，可在主电源在线时为后备超级电容或可充电电池充电。精度一般（依赖外部32.768 kHz晶振，月误差数分钟），适合对精度要求不高的场合。
+    \item \textbf{DS1307}：最经典的I$^2$C接口RTC，地址0x68。内置56字节非易失性SRAM（可用于存储配置参数），支持12/24小时制和星期。需要外部32.768 kHz晶振和CR2032后备电池。精度依赖晶振（通常$\pm 20\,\mathrm{ppm}$，月误差约1分钟）。是Arduino和树莓派最常用的RTC。
+    \item \textbf{DS3231}：高精度版本，最大特色是\textbf{内置TCXO（温度补偿晶振）}，精度达$\pm 2\,\mathrm{ppm}$（$-40\sim85\,^\circ\mathrm{C}$范围内年误差$<1$分钟），无需外部晶振。集成两个可编程方波输出和两个闹钟。I$^2$C接口（地址0x68），兼容DS1307代码。是精密计时和数据记录系统的首选。
+\end{itemize}
+
+\textbf{RTC与MCU的连接}：以DS3231为例，VCC接3.3V/5V，GND接地，SDA/SCL接MCU的I$^2$C总线（需4.7k$\Omega$上拉电阻），VBAT接CR2032正极。Arduino可通过Wire库直接读写，树莓派通过设备树配置后用\texttt{hwclock}命令同步系统时间。
 
 \chapter{电源技术}
 \label{chap:power_supply}
@@ -5688,6 +5749,151 @@ DSP 接收链路：RF 前端（LNA→混频至低中频如 $128\,\mathrm{kHz}$�
 \subsection{DSP收音机的优势与局限}
 
 优势：超小体积，无需调试中周/鉴频线圈——一致性极好，软件可升级；局限：(1) ADC 动态范围有限——超强信号饱和需精准前级衰减；(2) 预选不足时带外强信号混叠(Aliasing)进入中频——造成寄生响应——前端预选器设计至关重要不可省略。
+
+% ================================================
+% 移动通信标准演进
+% ================================================
+\chapter{移动通信标准演进}
+\label{chap:mobile_comm}
+
+移动通信自20世纪80年代商用以来，大约每10年演进一代。从1G的模拟语音到5G的万物互联，再到正在研发的6G，每一代都在速率、时延、连接数和融合能力上实现跨越式提升。本章梳理各代移动通信标准及其技术特征，帮助读者建立完整的移动通信技术演进脉络。
+
+\section{各代移动通信标准对比}
+\label{sec:mobile_generations}
+
+\begin{table}[htbp]
+\centering
+\caption{各代移动通信标准对比}
+\label{tab:mobile_generations}
+\begin{tabular}{@{}lllllp{3.5cm}p{3cm}@{}}
+    \toprule
+    \textbf{代际} & \textbf{美国} & \textbf{欧洲} & \textbf{中国} & \textbf{主要技术} & \textbf{核心业务} \\
+    \midrule
+    1G (1980s) & AMPS & TACS / NMT & TACS & 模拟FDMA & 语音通话 \\
+    2G (1990s) & IS-136 / IS-95 & GSM & GSM / CDMA & 数字TDMA/CDMA & 语音+短信+低速数据 \\
+    3G (2000s) & CDMA2000 & WCDMA & TD-SCDMA & CDMA & 移动互联网+视频通话 \\
+    4G (2010s) & LTE / LTE-A & LTE / LTE-A & TD-LTE / FDD-LTE & OFDMA/SC-FDMA & 高速移动宽带+VoLTE \\
+    5G (2020-) & NR & NR & NR & OFDM/大规模MIMO/毫米波 & eMBB+URLLC+mMTC \\
+    5G-A (2024-) & 5G-Advanced & 5G-Advanced & 5G-Advanced & NR增强+AI融合 & 高速增强+通感一体+AI原生 \\
+    6G (研发中) & IMT-2030 & IMT-2030 & IMT-2030 & 太赫兹+星地融合+语义通信 & 通感智算一体+空天地一体 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\section{各代技术特征}
+\label{sec:mobile_features}
+
+\subsection{1G：模拟语音时代（1980s）}
+1G采用模拟调频（FM）技术，基于FDMA（频分多址）接入方式。主要标准包括美国的AMPS（Advanced Mobile Phone System）、欧洲的TACS（Total Access Communication System）和北欧的NMT（Nordic Mobile Telephone）。1G仅支持语音通话，容量有限，保密性差，易受干扰，但奠定了蜂窝移动通信的基本架构（频率复用、越区切换）。
+
+\subsection{2G：数字通信时代（1990s）}
+2G引入数字调制和加密，大幅提升了频谱效率和保密性。欧洲的GSM（Global System for Mobile Communications）成为全球最成功的2G标准，采用TDMA（时分多址）+GMSK调制。美国的IS-95（后称cdmaOne）采用CDMA（码分多址）技术，是CDMA在蜂窝通信的首次商用。2G支持语音、短信和低速数据（GPRS/EDGE，最高384 kbps）。
+
+\subsection{3G：移动互联网时代（2000s）}
+3G以CDMA为核心技术，传输速率提升至2 Mbps，开启了移动互联网时代。三大国际标准：
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{WCDMA}（Wideband CDMA）：欧洲和日本主导，基于GSM平滑演进
+    \item \textbf{CDMA2000}：美国主导，基于IS-95演进
+    \item \textbf{TD-SCDMA}（Time Division Synchronous CDMA）：中国首个自主国际标准，采用TDD双工方式
+\end{itemize}
+3G支持视频通话、移动浏览、流媒体等业务，后期HSPA/HSPA+将速率提升至42 Mbps。
+
+\subsection{4G：宽带移动时代（2010s）}
+4G以LTE（Long Term Evolution）和LTE-Advanced为核心，采用OFDMA（正交频分多址）和SC-FDMA（单载波频分多址）技术，全面IP化。4G峰值速率达1 Gbps，时延降至50 ms以内，支持VoLTE、高清视频、移动支付等业务。两大双工方式：
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{FDD-LTE}（频分双工）：上下行使用不同频率，欧洲主导
+    \item \textbf{TD-LTE}（时分双工）：上下行使用同一频率不同时隙，中国主导
+\end{itemize}
+
+\subsection{5G：万物互联时代（2020-）}
+5G NR（New Radio）由3GPP制定，从Release 15开始。5G定义了三大应用场景：
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{eMBB}（增强移动宽带）：峰值速率10 Gbps，支持4K/8K视频、VR/AR
+    \item \textbf{URLLC}（超可靠低时延通信）：时延1 ms，支持工业自动化、自动驾驶
+    \item \textbf{mMTC}（大规模机器通信）：每平方公里百万连接，支持物联网
+\end{itemize}
+5G关键技术包括大规模MIMO、毫米波通信、波束赋形、网络切片等。Sub-6 GHz和毫米波（24-52 GHz）双频段部署。
+
+\subsection{5G-Advanced：5G增强（2024-）}
+5G-Advanced（5G-A）从3GPP Release 18开始，是5G向6G演进的过渡阶段。2026年正处于规模化部署阶段，主要增强：
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{下行速率}：多载波聚合实测突破4.6 Gbps
+    \item \textbf{通感一体}：通信与雷达感知融合，支持低空经济、无人机管理
+    \item \textbf{AI原生网络}：AI与网络深度融合，智能化资源调度
+    \item \textbf{天地一体}：与卫星互联网融合，扩展覆盖
+\end{itemize}
+
+\section{中国移动通信发展历程}
+\label{sec:china_mobile}
+
+中国完成了从"1G空白、2G跟跑"到"3G突破、4G并跑"再到"5G领跑"的历史性跨越：
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{1G（1987年）}：完全依赖进口TACS系统，无自主技术，移动电话用户极少
+    \item \textbf{2G（1994年）}：引进GSM，建设全球最大GSM网络，移动通信开始普及
+    \item \textbf{3G（2009年）}：TD-SCDMA成为首个中国自主国际标准，实现零的突破，2009年1月发放3G牌照
+    \item \textbf{4G（2013年）}：TD-LTE成为两大4G国际标准之一，2013年12月发放4G牌照，全球规模商用
+    \item \textbf{5G（2019年）}：2019年6月发放5G商用牌照，NR标准制定中发挥主导作用，专利和商用部署全球领先
+    \item \textbf{6G（2019年布局）}：处于全球第一梯队，已完成第一阶段技术试验，预计2030年商用
+\end{itemize}
+
+\section{3GPP标准演进}
+\label{sec:3gpp_releases}
+
+3GPP（第三代合作伙伴计划）通过Release版本逐步推进移动通信标准：
+
+\begin{table}[htbp]
+\centering
+\caption{3GPP Release与移动通信代际对应关系}
+\label{tab:3gpp_releases}
+\begin{tabular}{@{}llp{6cm}@{}}
+    \toprule
+    \textbf{Release} & \textbf{代际} & \textbf{主要内容} \\
+    \midrule
+    Release 99 & 3G & WCDMA首个完整规范 \\
+    Release 8 & 4G & LTE（长期演进）基础规范 \\
+    Release 10 & 4G & LTE-Advanced，满足IMT-Advanced要求 \\
+    Release 15 & 5G & 5G NR首个标准（2018年冻结） \\
+    Release 16/17 & 5G & 5G增强，完善URLLC和工业物联网 \\
+    Release 18 & 5G-A & 5G-Advanced首个版本（2024年） \\
+    Release 19/20 & 5G-A / 6G & 5G-A深化 + 6G研究项目启动 \\
+    Release 21 & 6G & 6G规范阶段，向ITU IMT-2030提交候选技术 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+ITU（国际电信联盟）定义代际愿景与评估框架：IMT-2000对应3G，IMT-Advanced对应4G，IMT-2020对应5G，IMT-2030对应6G。3GPP负责制定具体技术规范，产业界选择性实现并商用。
+
+\section{6G愿景与关键技术}
+\label{sec:6g_vision}
+
+6G（IMT-2030）目前处于研发阶段，预计2029年完成国际标准，2030年规模商用。6G不仅是速率提升，更是通信范式的根本变革。
+
+\subsection{6G性能指标}
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{峰值速率}：36 Gbps（5G的20倍）
+    \item \textbf{体验速率}：300 Mbps以上
+    \item \textbf{端到端时延}：$<1\,\mathrm{ms}$
+    \item \textbf{连接密度}：每平方公里$10^7$设备
+    \item \textbf{频谱效率}：5G的2-3倍
+    \item \textbf{移动性}：支持$1000\,\mathrm{km/h}$高速移动
+\end{itemize}
+
+\subsection{6G三大融合能力}
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{空天地一体}：卫星通信与地面移动通信融合，实现全球无缝覆盖，解决沙漠、海洋、高空等传统网络盲区
+    \item \textbf{通智一体}：通信与AI智能体深度融合，网络具备自主决策能力，支持语义通信（"传意不传数"）
+    \item \textbf{通感一体}：通信与雷达感知融合，网络不仅能传输信息，还能实时感知环境，支持低空经济、数字孪生
+\end{itemize}
+
+\subsection{6G关键技术}
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{太赫兹通信}：利用0.1-10 THz频段，超大带宽支撑Tbps级传输
+    \item \textbf{星地融合组网}：低轨卫星星座（如千帆星座、星链）与地面网络协同
+    \item \textbf{语义通信}：网络理解数据含义，只传输关键信息，大幅降低带宽消耗
+    \item \textbf{AI原生网络}：AI深度嵌入网络架构，实现智能资源调度和网络自优化
+    \item \textbf{数字孪生}：构建物理网络的数字映射，实现网络规划、运维的虚实交互
+\end{itemize}
 
 
 % ================================================
