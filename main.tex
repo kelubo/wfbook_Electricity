@@ -5871,12 +5871,12 @@ RTL-SDR 的硬件核心是 Realtek RTL2832U 芯片。该芯片最初是为 DVB-T
 
 \subsection{主要参数}
 \begin{itemize}[leftmargin=2cm]
-    \item **频率范围**：24 MHz ~ 1.7 GHz
-    \item **瞬时带宽**：最大约 2.4 MHz
-    \item **采样率**：最大 2.4 MSPS
-    \item **位深**：8 位 ADC
-    \item **接口**：USB 2.0
-    \item **参考价格**：10-30 美元
+    \item \textbf{频率范围}：24 MHz ~ 1.7 GHz
+    \item \textbf{瞬时带宽}：最大约 2.4 MHz
+    \item \textbf{采样率}：最大 2.4 MSPS
+    \item \textbf{位深}：8 位 ADC
+    \item \textbf{接口}：USB 2.0
+    \item \textbf{参考价格}：10-30 美元
 \end{itemize}
 
 \subsection{优缺点}
@@ -5899,12 +5899,12 @@ HackRF One 是由 Michael Ossmann 设计的一款开源 SDR 平台，定位中�
 
 \subsection{主要参数}
 \begin{itemize}[leftmargin=2cm]
-    \item **频率范围**：1 MHz ~ 6 GHz
-    \item **瞬时带宽**：最大 20 MHz
-    \item **采样率**：最大 20 MSPS
-    \item **位深**：8 位 ADC/DAC
-    \item **接口**：USB 2.0
-    \item **参考价格**：300-500 美元
+    \item \textbf{频率范围}：1 MHz ~ 6 GHz
+    \item \textbf{瞬时带宽}：最大 20 MHz
+    \item \textbf{采样率}：最大 20 MSPS
+    \item \textbf{位深}：8 位 ADC/DAC
+    \item \textbf{接口}：USB 2.0
+    \item \textbf{参考价格}：300-500 美元
 \end{itemize}
 
 \subsection{优缺点}
@@ -5918,12 +5918,12 @@ LimeSDR 是基于 LMS7002M 芯片的另一款开源 SDR，性能优于 HackRF。
 
 \subsection{主要参数}
 \begin{itemize}[leftmargin=2cm]
-    \item **频率范围**：100 kHz ~ 3.8 GHz
-    \item **瞬时带宽**：最大 30.72 MHz
-    \item **采样率**：最大 61.44 MSPS
-    \item **位深**：12 位 ADC/DAC
-    \item **接口**：USB 3.0
-    \item **参考价格**：200-300 美元
+    \item \textbf{频率范围}：100 kHz ~ 3.8 GHz
+    \item \textbf{瞬时带宽}：最大 30.72 MHz
+    \item \textbf{采样率}：最大 61.44 MSPS
+    \item \textbf{位深}：12 位 ADC/DAC
+    \item \textbf{接口}：USB 3.0
+    \item \textbf{参考价格}：200-300 美元
 \end{itemize}
 
 \subsection{优缺点}
@@ -5953,12 +5953,12 @@ ADALM-PLUTO (PlutoSDR) 是 Analog Devices 推出的入门级 SDR 套件，基于
 
 \subsection{主要参数}
 \begin{itemize}[leftmargin=2cm]
-    \item **频率范围**：325 MHz ~ 3.8 GHz（通过 hack 可扩展至更低频率）
-    \item **瞬时带宽**：最大 20 MHz
-    \item **采样率**：最大 61.44 MSPS
-    \item **位深**：12 位 ADC/DAC
-    \item **接口**：USB 2.0
-    \item **参考价格**：约 150 美元
+    \item \textbf{频率范围}：325 MHz ~ 3.8 GHz（通过 hack 可扩展至更低频率）
+    \item \textbf{瞬时带宽}：最大 20 MHz
+    \item \textbf{采样率}：最大 61.44 MSPS
+    \item \textbf{位深}：12 位 ADC/DAC
+    \item \textbf{接口}：USB 2.0
+    \item \textbf{参考价格}：约 150 美元
 \end{itemize}
 
 \subsection{优缺点}
@@ -5980,12 +5980,12 @@ USRP (Universal Software Radio Peripheral) 是 Ettus Research（现属 NI）开�
 
 \subsection{主要参数（以 USRP N310 为例）}
 \begin{itemize}[leftmargin=2cm]
-    \item **频率范围**：10 MHz ~ 6 GHz
-    \item **瞬时带宽**：最大 120 MHz
-    \item **采样率**：最大 120 MSPS
-    \item **位深**：14 位 ADC
-    \item **接口**：双千兆以太网
-    \item **参考价格**：数千至上万美元
+    \item \textbf{频率范围}：10 MHz ~ 6 GHz
+    \item \textbf{瞬时带宽}：最大 120 MHz
+    \item \textbf{采样率}：最大 120 MSPS
+    \item \textbf{位深}：14 位 ADC
+    \item \textbf{接口}：双千兆以太网
+    \item \textbf{参考价格}：数千至上万美元
 \end{itemize}
 
 \subsection{优缺点}
@@ -6044,6 +6044,132 @@ GNU Radio 是 SDR 领域最核心的开源软件开发框架——Python 脚本 
 
 用 python 编写 GNU Radio 图形流、连线——按"运行"后即已开始解调无线信号——利用 GRC 生成代码可导出纯 Python 作高级整合到自行研发大的应用。GNU Radio 的结构使得从学习到研究快速渐进——是全体 SDR 开发者的基础技能。
 
+\subsection{实战项目1：FM广播接收机}
+\label{subsec:fm_receiver}
+
+本节将带领读者使用 GNU Radio 和 RTL-SDR 搭建一个完整的 FM 广播接收机。这是学习 SDR 的经典入门项目。
+
+\textbf{流图设计思路}：
+\begin{enumerate}[leftmargin=2cm]
+    \item **信号源**：使用 \texttt{Osmocom Source} 模块（RTL-SDR 驱动），调谐到目标 FM 频率（如 93.5 MHz），采样率设为 2.4 MSPS。
+    \item **下变频与滤波**：使用 \texttt{Frequency Shifter} 将信号搬移到零频，然后用 \texttt{Low Pass Filter} 滤除带外干扰。
+    \item **解调**：使用 \texttt{FM Demod} 模块完成频率解调，将角度调制信号转换为音频信号。
+    \item **音频输出**：使用 \texttt{Audio Sink} 将音频信号输出到声卡。
+\end{enumerate}
+
+\textbf{GRC 流图关键参数}：
+\begin{itemize}[leftmargin=2cm]
+    \item \texttt{Osmocom Source}：center\_freq = 93.5e6, sample\_rate = 2.4e6
+    \item \texttt{Low Pass Filter}：cutoff = 150e3 Hz, transition = 50e3 Hz
+    \item \texttt{FM Demod}：quadrature = True, sensitivity = 50e3
+    \item \texttt{Audio Sink}：sample\_rate = 48e3
+\end{itemize}
+
+\textbf{Python 代码片段（FM 解调核心）}：
+\begin{lstlisting}[language=Python,caption={FM 解调核心代码}]
+from gnuradio import gr, blocks, analog, audio
+
+# 创建流图
+tb = gr.top_block()
+
+# 信号源（从文件读取 IQ 数据用于模拟）
+src = blocks.file_source(gr.sizeof_gr_complex, "fm_signal.iq", True)
+
+# 低通滤波
+lpf = analog.low_pass_filter(
+    1.0,    # gain
+    2.4e6,  # sample rate
+    150e3,  # cutoff freq
+    50e3    # transition width
+)
+
+# FM 解调
+fm_demod = analog.fm_demod(
+    50e3,   # sensitivity
+    True,   # quadrature
+    0.0     # phase offset
+)
+
+# 音频输出
+audio_sink = audio.sink(48e3)
+
+# 连接模块
+tb.connect(src, lpf, fm_demod, audio_sink)
+
+# 运行流图
+tb.start()
+tb.wait()
+\end{lstlisting}
+
+\subsection{实战项目2：SSB接收机}
+\label{subsec:ssb_receiver}
+
+SSB（单边带）是业余无线电（Ham Radio）和短波通信的常用调制方式。相比 FM，SSB 占用带宽更小，通信距离更远。
+
+\textbf{SSB 接收原理}：SSB 信号通过滤波器选出上边带（USB）或下边带（LSB），然后与本振信号混频恢复原始音频。
+
+\textbf{流图设计思路}：
+\begin{enumerate}[leftmargin=2cm]
+    \item **信号源**：RTL-SDR 采集 HF 频段（如 7 MHz）的 SSB 信号。
+    \item **窄带滤波**：使用 \texttt{Band Pass Filter} 选择 SSB 信号（约 3 kHz 带宽）。
+    \item **乘积检波**：使用 \texttt{Multiply} 模块与 NCO（数字控制振荡器）相乘，恢复音频。
+    \item **低通滤波**：滤除高频分量，得到原始音频。
+\end{enumerate}
+
+\textbf{GRC 流图关键参数}：
+\begin{itemize}[leftmargin=2cm]
+    \item \texttt{Band Pass Filter}：low\_cut = 200 Hz, high\_cut = 2800 Hz
+    \item \texttt{Oscillator（NCO）}：frequency = 0 Hz（零拍检波）
+    \item \texttt{Low Pass Filter（音频）}：cutoff = 3 kHz
+\end{itemize}
+
+\textbf{注意事项}：
+\begin{itemize}[leftmargin=2cm]
+    \item SSB 接收机的本振需要非常稳定，通常使用高稳定度晶振。
+    \item 建议使用 SDRplay RSP 或 HackRF 等频率稳定性更好的硬件。
+    \item SSB 信号非常微弱，需要良好的前端滤波和低噪声放大。
+\end{itemize}
+
+\subsection{实战项目3：数据解调（POCSAG/DMR）}
+\label{subsec:digital_demod}
+
+GNU Radio 还支持解调各种数字通信协议，这是 SDR 的核心能力之一。
+
+\textbf{常用数字解调模块}：
+\begin{itemize}[leftmargin=2cm]
+    \item **POCSAG 解码器**：用于接收寻呼机信号，频率 137 MHz。
+    \item **DMR 解码器**：用于接收数字对讲机信号，频率 435 MHz 频段。
+    \item **APCO-25 解码器**：用于接收公共安全通信信号。
+    \item **AX.25 解码器**：用于接收业余无线电报（Packet Radio）信号。
+\end{itemize}
+
+\textbf{示例：AX.25 数据包接收}：
+\begin{lstlisting}[language=Python,caption={AX.25 数据包解码}]
+from gnuradio import gr, blocks, digital
+from gnuradio.filter import firdes
+
+# 创建流图
+tb = gr.top_block()
+
+# 1200 Baud AFSK 解调器
+# f1 = 1200 Hz (bit 0), f2 = 2200 Hz (bit 1)
+# 使用 AFSK Demodulator 模块
+afsk_demod = digital.afsk_demod(
+    mark_freq=1200,
+    space_freq=2200,
+    samp_rate=48e3,
+    baudrate=1200,
+    bt=0.5,
+    dpl=True
+)
+
+# AX.25 解码器
+ax25_decoder = digital.ax25_decoder("decoded_packets.log")
+
+# 连接模块
+# tb.connect(src, afsk_demod, ax25_decoder)
+\end{lstlisting}
+
 \section{SDR\# 与其他接收软件}
 \label{sec:sdr_software_rx}
 
@@ -6077,6 +6203,203 @@ librtlsdr 是 C 库——直接与 rtl-sdr 底层通讯——性能最高应用�
 \subsection{SDR信号处理算法}
 
 基础：FIR 设计（用 Python/Octave 算系数）——在 C+ libliquid库实现——抽取/插值 /复数 调制解调。数字 PLL / Costas loop 实现载波锁——实验——是\"软件上认识锁环\"的纵深步骤。
+
+% ================================================
+% 软件无线电（SDR） - 天线系统
+% ================================================
+\chapter{SDR天线系统}
+\label{chap:sdr_antennas}
+
+天线是 SDR 系统中至关重要的一环，直接决定了接收/发射信号的质量。一套良好的 SDR 天线系统应根据目标频段、应用场景和环境条件进行选择和架设。本章将介绍 SDR 常用的天线类型、调谐设备和架设指南。
+
+\section{天线基础}
+\label{sec:antenna_basics}
+
+\subsection{天线的基本参数}
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：天线能有效工作的频率区间。SDR 天线需要覆盖目标频段。
+    \item **带宽**：天线驻波比（VSWR）≤ 1.5 的频率范围，覆盖越宽越好。
+    \item \textbf{增益}：天线在特定方向上的辐射/接收能力，用 dBi 表示。
+    \item **方向图**：天线辐射/接收方向的空间分布。
+    \item **极化方式**：电磁波的电场方向，分为线极化（水平/垂直）和圆极化。
+    \item **阻抗**：天线的输入阻抗，通常为 50 Ω，需与 SDR 硬件匹配。
+    \item **VSWR（电压驻波比）**：衡量天线与馈线阻抗匹配程度的指标，理想值为 1.0。
+\end{itemize}
+
+\subsection{SDR对天线的要求}
+\begin{itemize}[leftmargin=2cm]
+    \item **宽频段**：SDR 的优势在于宽频段覆盖，天线也应尽可能宽频。
+    \item **高灵敏度**：SDR 通常接收微弱信号，天线噪声温度要低。
+    \item **可移动性**：便携 SDR 要求天线便于携带和快速架设。
+    \item **抗干扰**：在电磁环境复杂的城市，需要良好的方向性以抑制干扰。
+\end{itemize}
+
+\section{常用SDR天线类型}
+\label{sec:antenna_types}
+
+\subsection{鞭状天线（Whip Antenna）}
+鞭状天线是最常见的便携式 SDR 天线，由一根直导体杆组成。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：覆盖 VHF/UHF 频段（通常 30 MHz ~ 2 GHz）。
+    \item \textbf{增益}：约 2-3 dBi。
+    \item \textbf{极化}：垂直极化。
+    \item \textbf{优点}：结构简单、价格便宜、便于携带、全向性好。
+    \item \textbf{缺点}：增益较低、对 HF 频段（短波）无效。
+    \item \textbf{适用场景}：便携式 SDR、车载 SDR、VHF/UHF 频段接收。
+\end{itemize}
+
+\subsection{单极/偶极子天线（Monopole/Dipole）}
+偶极子天线由两根导体组成，是最基本的天线形式。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：覆盖 HF/VHF/UHF 各频段（取决于长度）。
+    \item \textbf{增益}：约 2.15 dBi（半波偶极子的标准增益）。
+    \item \textbf{极化}：水平或垂直极化。
+    \item \textbf{优点}：结构简单、性能可靠、带宽较宽（10-15%）。
+    \item \textbf{缺点}：半波偶极子长度为波长的一半，HF 频段天线较长。
+    \item \textbf{适用场景}：固定 SDR 台、业余无线电、广播接收。
+\end{itemize}
+
+\subsection{环形天线（Loop Antenna）}
+环形天线是闭合的导体回路，分为小环（磁场耦合）和大环（电磁波耦合）。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：小环适合 HF，大环适合 VHF/UHF。
+    \item \textbf{增益}：小环约 1-3 dBi，大环约 3-6 dBi。
+    \item \textbf{极化}：垂直或水平极化（取决于放置方式）。
+    \item \textbf{优点}：方向性强（小环对磁场敏感，抑制电场干扰）、体积相对紧凑。
+    \item \textbf{缺点}：带宽较窄（小环约 2-5%）、需要调谐。
+    \item \textbf{适用场景}：城市中 HF 接收（抗干扰）、磁性风暴监测、便携 SDR。
+\end{itemize}
+
+\subsection{定向天线（Yagi-Uda / Patch）}
+定向天线具有高增益和强方向性，适合远距离通信和干扰抑制。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：VHF/UHF 频段。
+    \item \textbf{增益}：6-15 dBi。
+    \item \textbf{极化}：垂直或水平极化。
+    \item \textbf{优点}：增益高、方向性强、能有效抑制背向干扰。
+    \item \textbf{缺点}：体积较大、需要架设和调整方向。
+    \item \textbf{适用场景}：固定 SDR 台、远距离接收、卫星通信、ADS-B/ATIS 接收。
+\end{itemize}
+
+\subsection{宽带天线（Discone / Fan）}
+宽带天线是宽频段 SDR 的理想选择，覆盖频率范围广。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：Discone（盘锥）约 25 MHz ~ 1.3 GHz；Fan（扇形）约 500 MHz ~ 6 GHz。
+    \item \textbf{增益}：约 2-5 dBi。
+    \item \textbf{极化}：垂直极化。
+    \item \textbf{优点}：超宽频段覆盖、无需调谐、结构简单。
+    \item \textbf{缺点}：增益较低、HF 频段性能较差。
+    \item \textbf{适用场景}：频谱监测、宽带 SDR、空中交通管制、无线电扫描。
+\end{itemize}
+
+\subsection{长线天线（Long Wire）}
+长线天线是最简单的 HF 天线，由一根较长的导线构成。
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{频率范围}：HF 频段（1.8 MHz ~ 30 MHz）。
+    \item \textbf{增益}：约 3-5 dBi。
+    \item \textbf{极化}：水平极化。
+    \item \textbf{优点}：结构简单、带宽较宽（10-20%）、非常适合短波接收。
+    \item \textbf{缺点}：长度较长（通常几米到几十米）、需要架设空间。
+    \item \textbf{适用场景}：短波接收、DX 通信、HF 频段 SDR。
+\end{itemize}
+
+\section{天线调谐器（ATU）}
+\label{sec:atu}
+
+\subsection{ATU的作用}
+天线调谐器（Antenna Tuning Unit, ATU）的作用是在 SDR 和天线之间进行阻抗匹配，确保天线在目标频率上获得最佳的功率传输。当 SDR 覆盖宽频段时，天线阻抗会随频率变化，ATU 就是为了解决这个问题。
+
+\subsection{ATU的类型}
+\begin{itemize}[leftmargin=2cm]
+    \item **手动 ATU**：通过旋钮或开关手动调整电感和电容，适合固定频率或少量频率点。
+    \item **自动 ATU**：内置处理器，自动搜索最佳匹配网络，SDR 软件可通过串口控制。
+    \item **无源 ATU**：纯被动元件，无需供电，可靠性高但调节较繁琐。
+    \item **有源 ATU**：含放大器，可提升接收灵敏度，但增加噪声。
+\end{itemize}
+
+\subsection{SDR与ATU的配合}
+\begin{itemize}[leftmargin=2cm]
+    \item SDR 软件（如 SDR#、GQRX）通常支持通过 CAT（Computer-Aided Tuning）接口控制 ATU 自动调谐。
+    \item 部分 SDR 硬件（如 SDRplay RSP）内置了调谐器，可通过软件控制。
+    \item 对于自制 ATU，可使用 Arduino/STM32 实现自动调谐功能。
+\end{itemize}
+
+\section{馈线系统}
+\label{sec:feedline}
+
+\subsection{同轴电缆}
+同轴电缆是 SDR 系统中最常用的馈线类型，由内导体、介质、外导体和护套组成。
+
+\begin{itemize}[leftmargin=2cm]
+    \item **常用类型**：RG-58、RG-8X、RG-213、LMR-400。
+    \item **损耗**：频率越高损耗越大。HF 频段电缆损耗小，UHF/VHF 需选择低损耗电缆。
+    \item **阻抗**：50 Ω（标准 SDR 阻抗）。
+    \item **长度**：馈线过长会增加损耗，应尽量缩短。
+\end{itemize}
+
+\subsection{连接器}
+常用的 RF 连接器包括 SMA、N、BNC、U.FL 等。
+
+\begin{itemize}[leftmargin=2cm]
+    \item **SMA**：小型连接器，适合便携式 SDR，支持最高 18 GHz。
+    \item **N 型**：中型连接器，适合中大功率和较高频率，支持最高 18 GHz。
+    \item **BNC**：快速插拔连接器，适合测试和临时连接，支持最高 4 GHz。
+    \item **U.FL**：超小型连接器，适合空间受限的设备。
+\end{itemize}
+
+\subsection{避免的问题}
+\begin{itemize}[leftmargin=2cm]
+    \item **阻抗不匹配**：所有连接器和馈线必须为 50 Ω。
+    \item **VSWR 过高**：使用 VSWR 计检查匹配，应保持 VSWR < 2.0。
+    \item **机械应力**：避免连接器弯曲或受到过大拉力。
+    \item **潮湿侵入**：户外使用必须做好防水密封。
+\end{itemize}
+
+\section{天线架设指南}
+\label{sec:antenna_install}
+
+\subsection{便携式SDR天线架设}
+\begin{itemize}[leftmargin=2cm]
+    \item **城市环境**：使用鞭状天线或小环形天线，尽量靠近窗户或阳台。
+    \item **野外环境**：使用偶极子天线或盘锥天线，架设在高处。
+    \item **短波接收**：使用长线天线，架设在两树之间，长度至少 5 米。
+\end{itemize}
+
+\subsection{固定SDR台架设}
+\begin{itemize}[leftmargin=2cm]
+    \item **位置选择**：远离干扰源（电视、手机塔、高压线），尽量架设在屋顶。
+    \item **高度**：天线越高，视距越远，接收效果越好。
+    \item **方向**：定向天线应指向目标信号源方向。
+    \item **接地**：HF 天线需要良好的接地系统（地网或地棒）。
+\end{itemize}
+
+\subsection{电磁干扰屏蔽}
+\begin{itemize}[leftmargin=2cm]
+    \item **识别干扰源**：使用 SDR 的频谱分析功能识别干扰源。
+    \item **共模扼流圈**：在馈线上加装共模扼流圈，抑制共模干扰。
+    \item **滤波器**：在 SDR 前端加装带通滤波器，抑制带外干扰。
+    \item **屏蔽**：使用同轴电缆（本身具有屏蔽功能），避免平行导线。
+\end{itemize}
+
+\section{天线调试工具}
+\label{sec:antenna_test}
+
+\begin{itemize}[leftmargin=2cm]
+    \item **VSWR 计**：测量天线驻波比，判断阻抗匹配。
+    \item **天线分析仪**：矢量网络分析仪，可测量天线的 S 参数和阻抗。
+    \item **频谱分析仪**：检查天线的频率响应。
+    \item **Noise Figure Meter**：测量系统噪声系数。
+\end{itemize}
+
+\textbf{自制天线分析仪}：
+可以使用 RTL-SDR 自制一个简易的天线分析仪，成本仅几十美元。它通过发送已知信号并测量反射信号，计算天线的 S11 参数（反射系数）和 VSWR。
+
 
 \chapter{SDR应用实践}
 \label{chap:sdr_applications}
@@ -6136,6 +6459,137 @@ SDR 配合 WSJT-X——接收弱极微 FT8/WSPR/FT4——极低信噪可解码�
 \subsection{雷达信号分析}
 
 SDR 可监听和解析导航雷达频段——了解雷达波形；也可用 USRP+软件构建自制微型 FMCW 雷达——感受"雷达世界就像无线回声"——\"射频探索包括雷达频域\"——增加一种跨界思维。
+
+\section{航空与海事追踪}
+\label{sec:sdr_tracking}
+
+SDR 在航空和海事领域的追踪应用是其最受欢迎的实践项目之一。通过接收飞机和船舶主动广播的信号，SDR 可以实现实时的目标追踪和可视化。
+
+\subsection{ADS-B 飞机追踪}
+\label{subsec:adsb}
+
+ADS-B（Automatic Dependent Surveillance-Broadcast，自动相关监视广播）是现代航空交通管制的重要技术。现代客机都配备了 ADS-B 发射机，自动向地面广播以下信息：
+\begin{itemize}[leftmargin=2cm]
+    \item 飞机的唯一 ID（ICAO 地址）
+    \item 实时位置（经纬度）
+    \item 高度、速度、航向
+    \item 航班号、飞机类型等
+\end{itemize}
+
+\textbf{ADS-B 工作原理}：
+\begin{enumerate}[leftmargin=2cm]
+    \item 频率：1090 MHz（ES 模式）或 978 MHz（DO-260 模式）
+    \item 协议：基于 1090ES 协议，每秒发射约 2 次位置报告
+    \item 数据：112 位（ME 消息）或 56 位（短消息）
+\end{enumerate}
+
+\textbf{搭建 ADS-B 接收系统}：
+\begin{enumerate}[leftmargin=2cm]
+    \item **硬件**：RTL-SDR（或 Airspy、SDRplay）+ 1090 MHz 专用天线
+    \item **软件**：dump1090（标准 ADS-B 解码软件）+ 前端可视化（如 SkyAware、FlightRadar24）
+    \item **系统架构**：SDR → dump1090 → 本地 Web 服务器（显示飞机位置地图）
+\end{enumerate}
+
+\textbf{安装与配置（Linux 示例）}：
+\begin{lstlisting}[language=Bash,caption={安装 dump1090}]
+# 安装依赖
+sudo apt-get install librtlsdr-dev libusb-1.0-0-dev pkg-config
+
+# 编译 dump1090
+git clone https://github.com/MalcolmRobb/dump1090.git
+cd dump1090
+make
+
+# 运行（使用 RTL-SDR）
+./dump1090 --interactive --net --display-weather
+\end{lstlisting}
+
+\textbf{ADS-B 天线选择}：
+\begin{itemize}[leftmargin=2cm]
+    \item **推荐**：1090 MHz 专用天线（八分之五波长偶极子或垂直天线）
+    \item **替代**：通用 SDR 天线 + 1090 MHz 带通滤波器
+    \item **架设**：天线越高，接收距离越远，建议架设在屋顶
+\end{itemize}
+
+\textbf{数据可视化与共享}：
+\begin{itemize}[leftmargin=2cm]
+    \item **本地可视化**：dump1090 自带 Web 界面，显示周边飞机
+    \item **FlightRadar24**：注册账号后，将接收到的 ADS-B 数据上传到 FR24 服务器，获得全球飞机追踪
+    \item **其他平台**：ADS-B Exchange、Planefinder、FlightAware
+\end{itemize}
+
+\subsection{AIS 船舶追踪}
+\label{subsec:ais}
+
+AIS（Automatic Identification System，自动识别系统）是船舶的类似 ADS-B 的追踪系统，工作频率为 VHF 频段（161.975 MHz 和 162.025 MHz）。
+
+\textbf{AIS 工作原理}：
+\begin{enumerate}[leftmargin=2cm]
+    \item 频率：161.975 MHz（通道 A）和 162.025 MHz（通道 B）
+    \item 协议：基于 TDMA（时分多址），每 6 分钟为一个时间帧
+    \item 数据：船舶 MMSI、位置、速度、航向、目的地等
+\end{enumerate}
+
+\textbf{搭建 AIS 接收系统}：
+\begin{enumerate}[leftmargin=2cm]
+    \item **硬件**：RTL-SDR + VHF 天线（162 MHz 专用）
+    \item **软件**：AISmon、AIVDM 解码器、或 GNU Radio 流图
+    \item **系统架构**：SDR → AIS 解码器 → 可视化界面
+\end{enumerate}
+
+\textbf{AIS 天线选择}：
+\begin{itemize}[leftmargin=2cm]
+    \item **专用天线**：162 MHz 偶极子或垂直天线
+    \item **替代**：双频（VHF/UHF）天线 + 162 MHz 带通滤波器
+    \item **注意**：AIS 信号较弱，建议使用增益较高的天线
+\end{itemize}
+
+\textbf{AIS 数据可视化与共享}：
+\begin{itemize}[leftmargin=2cm]
+    \item **MarineTraffic**：全球船舶追踪网站，可上传 AIS 数据
+    \item **AISHub**：AIS 数据共享社区
+    \item **本地显示**：使用 OpenCPN（开源海图软件）显示船舶位置
+\end{itemize}
+
+\subsection{ADS-B 与 AIS 的对比}
+\begin{table}[htbp]
+\centering
+\caption{ADS-B 与 AIS 对比}
+\label{tab:adsb_ais}
+\begin{tabular}{@{}lll@{}}
+    \toprule
+    \textbf{对比项} & \textbf{ADS-B} & \textbf{AIS} \\
+    \midrule
+    目标对象 & 飞机 & 船舶 \\
+    工作频率 & 1090 MHz & 161.975/162.025 MHz \\
+    信号类型 & ES (1090ES) & TDMA \\
+    接收距离 & 视距 ~250 km & 视距 ~60 km \\
+    天线要求 & 1090 MHz 专用 & 162 MHz 专用 \\
+    数据内容 & 位置/高度/速度 & 位置/速度/航向 \\
+    主要软件 & dump1090 & AISmon \\
+    共享平台 & FR24, ADS-B Exchange & MarineTraffic, AISHub \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{多站网络}
+\label{subsec:multistation}
+
+单个 SDR 接收站的覆盖范围有限（视距 50-250 km），通过建立多站网络可以实现更大范围的覆盖。
+\begin{itemize}[leftmargin=2cm]
+    \item **ADS-B 网络**：ADS-B Exchange 是全球最大的 ADS-B 数据共享网络，每个站点都能从其他站点获取数据
+    \item **AIS 网络**：AISHub 和 MarineTraffic 都支持多站数据融合
+    \item **自建网络**：使用 MQTT 或 LoRa 建立本地 ADS-B/AIS 网络
+\end{itemize}
+
+\subsection{安全与隐私}
+\label{subsec:privacy}
+\begin{itemize}[leftmargin=2cm]
+    \item ADS-B 和 AIS 都是公开广播的信息，理论上任何人都可以接收
+    \item 接收他人的 ADS-B/AIS 数据在大多数国家是合法的
+    \item 注意：不要将接收的数据用于非法目的
+    \item 飞机和船舶可以关闭 ADS-B/AIS（军事、警用、私密飞行）
+\end{itemize}
 
 
 \chapter{现代收音机技术展望}
@@ -6510,7 +6964,254 @@ LO & Local Oscillator 本机振荡器 & PLL & Phase Locked Loop 锁相环 \\
 SDR & Software Defined Radio 软件无线电 & OFDM & Orthogonal Frequency Division Multiplexing \\
 DAB & Digital Audio Broadcasting 数字音频广播 & DRM & Digital Radio Mondiale \\
 RDS & Radio Data System 无线数据系统 & DSP & Digital Signal Processing 数字信号处理 \\
+ADS-B & Automatic Dependent Surveillance-Broadcast & AIS & Automatic Identification System \\
+RTL-SDR & Realtek RTL2832U based SDR & GRC & GNU Radio Companion \\
+USRP & Universal Software Radio Peripheral & FPGA & Field-Programmable Gate Array \\
 \end{tabular}
+
+% ================================================
+% SDR 驱动安装指南
+% ================================================
+\chapter{SDR驱动安装指南}
+\label{app:sdr_drivers}
+
+\section{Windows 平台}
+\label{sec:driver_windows}
+
+\subsection{RTL-SDR 驱动}
+\begin{lstlisting}[language=Bash,caption={Windows 安装 RTL-SDR 驱动}]
+# 1. 下载驱动安装包
+# 访问 https://www.rtl-sdr.com/getting-rtl-sdr-to-work-on-windows-10/
+# 下载 Zadig 工具
+
+# 2. 使用 Zadig 安装驱动
+# - 连接 RTL-SDR 到 USB
+# - 打开 Zadig，选择 RTL-SDR 设备
+# - 点击 "Replace Driver" 安装驱动
+
+# 3. 验证驱动安装
+# 在命令行运行：
+rtl_test
+# 或使用 SDR# 软件打开设备
+\end{lstlisting}
+
+\subsection{HackRF 驱动}
+\begin{lstlisting}[language=Bash,caption={Windows 安装 HackRF 驱动}]
+# 1. 下载 HackRF 工具包
+# 访问 https://hackrf.readthedocs.io/en/latest/index.html
+# 下载 Windows 版本工具包
+
+# 2. 安装驱动
+# - 连接 HackRF
+# - 运行 zadig.exe
+# - 选择 HackRF 设备
+# - 点击 "Replace Driver"
+
+# 3. 验证安装
+hackrf_info
+\end{lstlisting}
+
+\subsection{其他 SDR 驱动}
+\begin{itemize}[leftmargin=2cm]
+    \item **LimeSDR**：使用 Zadig 或安装官方驱动。
+    \item **USRP**：安装 Ettus Research 的 UHD 软件包（Python + C++ API）。
+    \item **PlutoSDR**：使用 ADI 官方驱动或 SoapySDR 驱动。
+    \item **Airspy**：使用 Airspy 官方驱动。
+\end{itemize}
+
+\section{Linux 平台}
+\label{sec:driver_linux}
+
+\subsection{RTL-SDR 驱动}
+\begin{lstlisting}[language=Bash,caption={Linux 安装 RTL-SDR 驱动}]
+# 方式 1：使用包管理器（推荐）
+sudo apt-get update
+sudo apt-get install rtl-sdr
+
+# 方式 2：从源码编译
+sudo apt-get install librtlsdr-dev libusb-1.0-0-dev
+git clone https://github.com/osmocom/rtl-sdr.git
+cd rtl-sdr
+mkdir build && cd build
+cmake ..
+make && sudo make install
+
+# 加载驱动模块
+sudo modprobe rtl2832
+sudo modprobe rtl2832u
+
+# 验证安装
+rtl_test
+\end{lstlisting}
+
+\subsection{HackRF 驱动}
+\begin{lstlisting}[language=Bash,caption={Linux 安装 HackRF 驱动}]
+# 安装依赖
+sudo apt-get install hackrf
+
+# 验证安装
+hackrf_info
+
+# 测试接收
+hackrf_transfer -r test.raw -f 433920000 -s 8000000
+\end{lstlisting}
+
+\subsection{USRP 驱动（UHD）}
+\begin{lstlisting}[language=Bash,caption={Linux 安装 UHD 驱动}]
+# 方式 1：使用包管理器
+sudo apt-get install uhd-host libuhd-dev
+
+# 方式 2：从源码编译
+sudo apt-get install python3-mako libboost-all-dev libusb-1.0-0-dev
+git clone https://github.com/EttusResearch/uhd.git
+cd uhd/host
+mkdir build && cd build
+cmake ..
+make && sudo make install
+
+# 下载 FPGA 固件
+sudo uhd_images_downloader
+
+# 验证安装
+uhd_usrp_probe
+\end{lstlisting}
+
+\section{macOS 平台}
+\label{sec:driver_macos}
+
+\subsection{RTL-SDR 驱动}
+\begin{lstlisting}[language=Bash,caption={macOS 安装 RTL-SDR 驱动}]
+# 使用 Homebrew 安装
+brew install rtl-sdr
+
+# 加载驱动
+sudo kextload /Library/Extensions/rtl2832.kext
+
+# 验证安装
+rtl_test
+\end{lstlisting}
+
+\subsection{其他 SDR 驱动}
+\begin{itemize}[leftmargin=2cm]
+    \item **HackRF**：brew install hackrf
+    \item **USRP**：brew install uhd
+    \item **LimeSDR**：brew install limesdr
+\end{itemize}
+
+% ================================================
+% SDR 常见问题解答
+% ================================================
+\chapter{SDR常见问题解答（FAQ）}
+\label{app:sdr_faq}
+
+\section{基础问题}
+\label{sec:faq_basic}
+
+\subsection{Q: RTL-SDR 无法被计算机识别怎么办？}
+\textbf{A:}
+\begin{enumerate}[leftmargin=2cm]
+    \item 检查 USB 连接是否牢固，尝试更换 USB 端口或线缆。
+    \item 在 Windows 上使用 Zadig 重新安装驱动。
+    \item 在 Linux 上检查 \texttt{lsusb} 是否能识别设备。
+    \item 尝试 \texttt{rtl_test} 查看驱动是否正常。
+    \item 如果还是不行，可能是 RTL-SDR 硬件损坏。
+\end{enumerate}
+
+\subsection{Q: 为什么 SDR 接收的信号有很多干扰？}
+\textbf{A:}
+\begin{enumerate}[leftmargin=2cm]
+    \item 可能是 USB 接口的干扰（尝试使用 USB 延长线，将 SDR 远离主机）。
+    \item 天线位置不佳（尝试架高或远离干扰源）。
+    \item 频率附近有强干扰信号（使用带通滤波器抑制）。
+    \item 本地振荡器（LO）不稳定（更换高质量晶振的 RTL-SDR Blog V3/V4）。
+\end{enumerate}
+
+\subsection{Q: RTL-SDR 的频率范围是多少？}
+\textbf{A:} 标准 RTL-SDR 的频率范围是 24 MHz ~ 1.7 GHz。部分型号可以通过修改固件扩展到 1.8 GHz 以上，但稳定性可能下降。
+
+\section{GNU Radio 相关问题}
+\label{sec:faq_gnuradio}
+
+\subsection{Q: GNU Radio 流图运行报错怎么办？}
+\textbf{A:}
+\begin{enumerate}[leftmargin=2cm]
+    \item 检查模块参数设置是否正确（特别是采样率、滤波器参数）。
+    \item 检查模块的连接是否正确（输入输出端口匹配）。
+    \item 查看错误信息，通常会指示具体的问题模块。
+    \item 参考 GNU Radio 官方文档和示例流图。
+\end{enumerate}
+
+\subsection{Q: 如何提高 GNU Radio 流图的实时性能？}
+\textbf{A:}
+\begin{enumerate}[leftmargin=2cm]
+    \item 使用 C++ 编写性能关键的模块。
+    \item 优化滤波器设计（降低阶数）。
+    \item 使用多线程处理。
+    \item 考虑使用 FPGA 加速。
+\end{enumerate}
+
+\section{ADS-B 相关问题}
+\label{sec:faq_adsb}
+
+\subsection{Q: 为什么 ADS-B 接收不到飞机信号？}
+\textbf{A:}
+\begin{enumerate}[leftmargin=2cm]
+    \item 确认天线频率为 1090 MHz。
+    \item 检查天线方向图是否正确（垂直极化，全向）。
+    \item 天线位置是否足够高（建议屋顶以上）。
+    \item 确认你的区域有 ADS-B 覆盖（FlightRadar24 网站可查）。
+\end{enumerate}
+
+\subsection{Q: dump1090 和其他 ADS-B 软件如何选择？}
+\textbf{A:}
+\begin{itemize}[leftmargin=2cm]
+    \item **dump1090**：最经典的开源软件，稳定可靠。
+    \item **readsb**：dump1090 的分支，性能更好，维护更活跃。
+    \item **dump1090-fa**：FlightAware 官方版本，功能完善。
+    \item **piaware**：树莓派上最流行的 ADS-B 方案。
+\end{itemize}
+
+% ================================================
+% SDR 术语表
+% ================================================
+\chapter{SDR术语表}
+\label{app:sdr_glossary}
+
+\begin{table}[htbp]
+\centering
+\caption{SDR 常用术语表}
+\label{tab:sdr_glossary}
+\begin{tabular}{@{}lp{6cm}p{6cm}@{}}
+    \toprule
+    \textbf{术语} & \textbf{英文} & \textbf{说明} \\
+    \midrule
+    SDR & Software Defined Radio & 软件定义无线电，通过软件实现无线电功能 \\
+    RTL-SDR & Realtek RTL2832U SDR & 基于 RTL2832U 芯片的低成本 SDR 接收器 \\
+    GRC & GNU Radio Companion & GNU Radio 的图形化流图编辑器 \\
+    FPGA & Field-Programmable Gate Array & 现场可编程门阵列，用于高速数字信号处理 \\
+    ADC & Analog-to-Digital Converter & 模数转换器 \\
+    DAC & Digital-to-Analog Converter & 数模转换器 \\
+    IQ & In-phase/Quadrature & 同相/正交分量，复数信号表示方式 \\
+    LO & Local Oscillator & 本机振荡器 \\
+    LNA & Low Noise Amplifier & 低噪声放大器 \\
+    PA & Power Amplifier & 功率放大器 \\
+    FIR & Finite Impulse Response & 有限脉冲响应滤波器 \\
+    IIR & Infinite Impulse Response & 无限脉冲响应滤波器 \\
+    DDC & Digital Downconverter & 数字下变频器 \\
+    DUC & Digital Upconverter & 数字上变频器 \\
+    NCO & Numerically Controlled Oscillator & 数字控制振荡器 \\
+    PLL & Phase Locked Loop & 锁相环 \\
+    ADS-B & Automatic Dependent Surveillance-Broadcast & 自动相关监视广播（飞机追踪） \\
+    AIS & Automatic Identification System & 自动识别系统（船舶追踪） \\
+    VSWR & Voltage Standing Wave Ratio & 电压驻波比（阻抗匹配指标） \\
+    SFDR & Spurious-Free Dynamic Range & 无杂散动态范围 \\
+    ENOB & Effective Number of Bits & 有效位数 \\
+    ZIF & Zero Intermediate Frequency & 零中频架构 \\
+    THD & Total Harmonic Distortion & 总谐波失真 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
 
 \chapter{参考文献}
 (1)《The Art of Electronics》, Horowitz \& Hill, 3rd Ed. ——电子学圣经级教材。
