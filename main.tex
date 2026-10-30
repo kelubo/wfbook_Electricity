@@ -306,6 +306,11 @@
 
 \usepackage{float}
 
+\usepackage{booktabs}
+
+\usepackage{listings}      % 提供 lstlisting 环境
+\usepackage{xcolor}        % （可选）为后面语法高亮提供颜色支持
+
 % 设置段落间距
 \setlength{\parskip}{0.8em plus 0.2em minus 0.1em}
 
@@ -1668,7 +1673,11 @@ $R_{\text{损耗}}$ 是线圈的等效串联损耗电阻，包含导线的直流
 \section{电声器件}
 \label{sec:electroacoustic}
 
-电声器件（Electroacoustic Transducer）是实现电能与声能相互转换的器件总称。根据能量转换方向，分为\textbf{电—声}（扬声器、耳机，将电信号转换为声波）和\textbf{声—电}（话筒/传声器，将声波转换为电信号）两类。它们是无线电技术中"人机接口"的关键环节——没有优良的电声器件，再精密的收发电路也无法为人耳所感知。
+在我们的日常生活中，无论是欣赏音乐、观看电影，还是进行电话会议、游戏娱乐，声音的重放设备无处不在。电声器件（Electroacoustic Transducer）是实现电能与声能相互转换的器件总称。根据能量转换方向，分为\textbf{电—声}（扬声器、耳机，将电信号转换为声波）和\textbf{声—电}（话筒/传声器，将声波转换为电信号）两类。它们是无线电技术中"人机接口"的关键环节——没有优良的电声器件，再精密的收发电路也无法为人耳所感知。
+
+\subsection{扬声器}
+
+扬声器是将电信号转换为声音信号的换能器。根据不同的设计哲学和应用需求，扬声器衍生出了繁多的种类。下面我们从\textbf{工作原理}、\textbf{振膜形状}、\textbf{频率范围}、\textbf{组成方式}、\textbf{用途}、\textbf{外形}以及\textbf{磁路材料}七个方面逐一展开。
 
 \subsection{扬声器}
 
@@ -1678,13 +1687,262 @@ $R_{\text{损耗}}$ 是线圈的等效串联损耗电阻，包含导线的直流
 
 \textbf{主要参数：}
 \begin{itemize}
-  \item \textbf{标称阻抗}：通常指 $400\,\mathrm{Hz}$ 时音圈的交流阻抗。常见值有 $4\Omega$、$8\Omega$、$16\Omega$。阻抗匹配很重要——功放输出阻抗应等于扬声器阻抗，否则功率传输效率低。
-  \item \textbf{额定功率}：扬声器能长期正常工作的最大电功率（W）。超功率驱动将导致音圈过热烧毁或纸盆振幅过大机械损坏。
-  \item \textbf{频率响应}：有效重放频率范围。小口径扬声器高频好低频差，大口径反之。全频收音机扬声器口径通常为 $3\sim5$ 英寸，频率响应约 $100\,\mathrm{Hz}\sim10\,\mathrm{kHz}$。
-  \item \textbf{灵敏度}：$1\,\mathrm{W}$ 输入功率在 $1\,\mathrm{m}$ 处产生的声压级（dB）。高灵敏度扬声器用小功率即可获得足够响度，是收音机（尤其电池供电型）的优选。
+	\item \textbf{标称阻抗}：通常指 $400\,\mathrm{Hz}$ 时音圈的交流阻抗。常见值有 $4\Omega$、$8\Omega$、$16\Omega$。阻抗匹配很重要——功放输出阻抗应等于扬声器阻抗，否则功率传输效率低。
+	\item \textbf{额定功率}：扬声器能长期正常工作的最大电功率（W）。超功率驱动将导致音圈过热烧毁或纸盆振幅过大机械损坏。
+	\item \textbf{频率响应}：有效重放频率范围。小口径扬声器高频好低频差，大口径反之。全频收音机扬声器口径通常为 $3\sim5$ 英寸，频率响应约 $100\,\mathrm{Hz}\sim10\,\mathrm{kHz}$。
+	\item \textbf{灵敏度}：$1\,\mathrm{W}$ 输入功率在 $1\,\mathrm{m}$ 处产生的声压级（dB）。高灵敏度扬声器用小功率即可获得足够响度，是收音机（尤其电池供电型）的优选。
 \end{itemize}
 
 \textbf{其他类型。}号筒式扬声器（高音）效率可达 $10\%\sim30\%$，用于广场扩声；压电式扬声器利用逆压电效应，用于蜂鸣器和报警器。
+	
+\subsubsection{按工作原理分类（换能方式）}
+
+这是最核心的分类，直接决定了扬声器的发声机理和音质特性。
+	
+\begin{table}[h]
+\centering
+\caption{按工作原理分类的扬声器}
+\label{tab:speaker_principle}
+\begin{tabular}{p{2.5cm}p{4.5cm}p{6.5cm}}
+\toprule
+\textbf{类型} & \textbf{工作原理} & \textbf{特点与应用} \\
+\midrule
+动圈式（电动式） & 基于佛莱明左手定律，音圈在磁场中受力驱动振膜。 & 技术最成熟、应用最广（占90\%以上）。结构牢固、成本适中，频响可达20Hz--20kHz。用于绝大多数家用及专业音响。 \\
+静电式（电容式） & 利用静电力驱动极轻的导电振膜，无磁体。 & 解析力极高、瞬态响应快、失真极低（<0.05\%）。但需专用驱动电源，低频受限，成本昂贵。用于顶级Hi-Fi系统。 \\
+平面磁式（等磁式） & 平面音圈嵌入振膜，在均匀磁场中驱动。 & 兼具动圈的动态和静电的低失真，驱动力均匀。常见于高端平板耳机及少数音箱。 \\
+压电式（晶体式） & 利用压电效应（电能→机械形变）带动振膜。 & 结构简单、体积小、功耗低，但音质一般。用于蜂鸣器、玩具、微型扬声器。 \\
+号角式 & 振膜推动号角内空气，利用声学变压器提高效率。 & 效率极高，声压级大，指向性强，传播远。用于剧场、户外扩声。 \\
+离子式（等离子体） & 高压电离空气形成等离子体，直接推动空气。 & 无机械振膜，理论失真最低，高频延伸极佳。但结构复杂、高压危险，极为小众。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+	\begin{figure}[h]
+		\centering
+	%	\includegraphics[width=0.7\textwidth]{fig/speaker_principle_example.jpg}
+		\caption{各类扬声器原理示意图（图片待补充）}
+		\label{fig:speaker_principle}
+	\end{figure}
+	
+\subsubsection{按振膜形状分类}
+
+振膜几何形态影响声辐射特性和频响表现。
+	
+\begin{table}[h]
+\centering
+\caption{按振膜形状分类的扬声器}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{形状} & \textbf{特点与应用} \\
+\midrule
+锥盆式 & 最常见形态，结构简单、效率高。中频表现优良，广泛用于中低音单元。 \\
+球顶式 & 半球形振膜，高频响应好、指向性宽。分软球顶（音色柔和）和硬球顶（明亮），用于高音和中音单元。 \\
+带式 & 极薄金属带（如铝带）兼作振膜和音圈，响应极快、失真小，高频延伸可达40kHz。用于高端高音单元。 \\
+平板式 & 平面振膜，可实现超薄设计，声衰减小，指向性好。用于平板音箱、壁挂音响。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按频率范围分类}
+
+为覆盖全频段，通常将扬声器分工合作。
+	
+\begin{table}[h]
+\centering
+\caption{按频率范围分类的扬声器}
+\begin{tabular}{p{3cm}p{4cm}p{5cm}}
+\toprule
+\textbf{类型} & \textbf{工作频段} & \textbf{特点} \\
+\midrule
+全频带扬声器 & 覆盖较宽范围（通常80Hz--16kHz） & 点声源，相位准确，人声自然。但高低频延伸有限，用于桌面音箱、收音机。 \\
+低音扬声器 & 16Hz--256Hz（或更低） & 大口径、长冲程，重放低频能量。用于低音炮、三分频音箱的低音部分。 \\
+中音扬声器 & 150Hz--5kHz & 人声和乐器基音主要频段，要求低失真、高解析。用于三分频音箱。 \\
+高音扬声器 & 2kHz--20kHz & 负责泛音和细节，多为球顶或带式。用于高音单元。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按组成方式分类}
+
+\begin{table}[h]
+\centering
+\caption{按组成方式分类的扬声器}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{类型} & \textbf{说明} \\
+\midrule
+单纸盆扬声器 & 单一振膜结构，最常见，成本低。 \\
+同轴复合扬声器 & 将高音单元置于低音单元中心轴线上，实现“点声源”，相位干扰小，定位精准。用于汽车音响、近场监听。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按用途分类}
+
+\begin{table}[h]
+\centering
+\caption{按用途分类的扬声器}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{用途} & \textbf{要求与实例} \\
+\midrule
+高保真（家庭用） & 追求音质还原，频响平直、失真小。用于家用Hi-Fi、家庭影院。 \\
+监听扬声器 & 用于录音棚、广播电台，声音中性、不加修饰，真实反映原始信号。 \\
+扩音用扬声器 & 用于公共场所、演出，强调大功率、高声压级和高可靠性。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按外形分类}
+\begin{table}[h]
+\centering
+\caption{按外形分类的扬声器}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{外形} & \textbf{特点} \\
+\midrule
+圆形 & 最常见，性能均衡，便于设计。 \\
+椭圆形 & 为适应狭小空间（如电视机、收音机）而设计，在有限面积内获得较大振膜。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按磁路材料分类}
+\begin{table}[h]
+\centering
+\caption{按磁路材料分类的扬声器}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{材料} & \textbf{特点} \\
+\midrule
+铁氧体（陶瓷磁铁） & 成本低、稳定性好，但磁能积较低，体积较大。用于中低端扬声器。 \\
+钕磁铁（稀土磁铁） & 磁力极强（约为铁氧体的10倍），可大幅减小体积和重量。用于高端耳机、便携设备和微型扬声器。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsection{耳机篇}
+
+耳机实质上是微型化的扬声器，但因其紧贴耳部，在佩戴方式、声学结构等方面衍生出独特的分类体系。以下从\textbf{换能原理}、\textbf{佩戴方式}、\textbf{声学结构（开放程度）}、\textbf{主要用途}和\textbf{连接方式}五个维度进行介绍。
+	
+\subsubsection{按换能原理分类}
+
+与扬声器类似，但耳机中“动铁”和“圈铁混合”是独有的。
+	
+\begin{table}[h]
+\centering
+\caption{按换能原理分类的耳机}
+\label{tab:headphone_principle}
+\begin{tabular}{p{2.5cm}p{4cm}p{6.5cm}}
+\toprule
+\textbf{类型} & \textbf{工作原理} & \textbf{特点与应用} \\
+\midrule
+动圈式 & 与动圈扬声器相同，音圈驱动振膜。 & 最常见（占60\%以上），技术成熟、成本低、低频自然。用于大部分消费级耳机。 \\
+动铁式 & 平衡电枢结构，通过精密的驱动杆传导振动。 & 体积小、灵敏度高、解析力强，擅长高频细节。用于专业监听、高端入耳式耳机（IEM）。 \\
+静电式 & 振膜在高压静电场中振动，无磁铁。 & 失真极低（<0.01\%），瞬态极快，细节丰富。但需专用耳放，价格昂贵。用于顶级Hi-Fi及参考级监听。 \\
+平板磁式 & 平面振膜上印刷音圈，在均匀磁场中驱动。 & 瞬态响应快、失真低，但较重且难驱动。用于高端开放式耳机。 \\
+圈铁混合 & 将动圈（低频）与动铁（高频）单元组合。 & 优势互补，全频段表现均衡。用于中高端入耳式耳机。 \\
+压电式 & 利用压电效应发声。 & 结构简单，音质一般，用于早期或特殊耳机。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+	\begin{figure}[h]
+		\centering
+	%	\includegraphics[width=0.6\textwidth]{fig/headphone_driver_types.jpg}
+		\caption{耳机单元类型示意图（图片待补充）}
+		\label{fig:headphone_driver}
+	\end{figure}
+	
+\subsubsection{按佩戴方式分类}
+
+直接影响舒适度、隔音性和便携性。
+	
+\begin{table}[h]
+\centering
+\caption{按佩戴方式分类的耳机}
+\begin{tabular}{p{3cm}p{4cm}p{5cm}}
+\toprule
+\textbf{类别} & \textbf{细分} & \textbf{特点} \\
+\midrule
+头戴式 & 全包耳式（Circumaural） & 耳罩完全包裹耳朵，佩戴舒适，声场自然，隔音好。 \\
+& 压耳式（Supra-aural） & 耳罩压在耳廓上，轻便，但长时间可能不适。 \\
+耳塞式 & 平头式（Flat-head） & 经典造型，佩戴舒适但漏音严重。 \\
+& 半入耳式（Semi-in-ear） & 介于平头和入耳之间，较舒适，有一定漏音。 \\
+入耳式 & 深入耳式 & 通过硅胶套插入耳道，隔音极佳，体积小。广泛用于各类场景。 \\
+挂耳式 & 耳挂式 & 通过耳挂固定在耳廓，佩戴稳固，适合运动。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按声学结构（开放程度）分类}
+
+决定了耳机的通透感和隔音效果。
+	
+\begin{table}[h]
+\centering
+\caption{按声学结构分类的耳机}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{类型} & \textbf{特点} \\
+\midrule
+开放式（Open-back） & 耳罩/外壳有开孔，声音内外通透，声场开阔自然。但漏音严重，不隔音。 \\
+封闭式（Closed-back） & 耳罩密闭，隔绝外界噪音，防止漏音。声场相对压缩，可能产生“桶音”。 \\
+半开放式（Semi-open） & 介于两者之间，在隔音和声场自然度上取得平衡。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按主要用途分类}
+
+\begin{table}[h]
+\centering
+\caption{按用途分类的耳机}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{用途} & \textbf{特点与实例} \\
+\midrule
+Hi-Fi耳机 & 追求高保真音质，忠实还原音乐，常用于音乐欣赏。 \\
+监听耳机 & 用于录音、混音、广播，要求声音不加修饰，极度真实。 \\
+降噪耳机（ANC） & 通过主动降噪技术（或被动物理隔音）降低环境噪音，适合通勤。 \\
+游戏耳机 & 强调声场定位和低音氛围，增强沉浸感，常配麦克风。 \\
+运动耳机 & 具备防水防汗、佩戴稳固（如耳挂、颈挂）的特点。 \\
+骨传导耳机 & 通过颅骨振动传递声音，保持耳道开放，适合户外运动。 \\
+商务/话务耳机 & 用于通话，具备降噪麦克风，常为单耳设计。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsubsection{按连接方式分类}
+
+\begin{table}[h]
+\centering
+\caption{按连接方式分类的耳机}
+\begin{tabular}{p{3cm}p{8cm}}
+\toprule
+\textbf{类型} & \textbf{特点} \\
+\midrule
+有线耳机 & 通过3.5mm或USB线缆连接，延迟低、音质稳定，无需充电。 \\
+无线耳机 & 主要通过蓝牙连接，摆脱线缆束缚。其中真无线立体声（TWS）是当前主流，彻底取消左右耳间连线。 \\
+\bottomrule
+\end{tabular}
+\end{table}
+	
+\subsection{结语}
+
+通过以上详尽分类，我们可以看到扬声器和耳机虽然形态各异，但都遵循着声学与电学的根本规律。无论是追求极致的静电系统，还是大众化的动圈产品，每种技术路线都有其存在的价值和适用边界。理解这些分类，不仅能帮助我们在选购时做出更明智的决策，也能加深对声音重放技术的热爱与敬畏。
+	
+随着材料科学和电子技术的进步，未来的换能器还将不断融合创新，带来更真实、更沉浸的听觉体验。
+	
+	\begin{figure}[h]
+		\centering
+	%	\includegraphics[width=0.8\textwidth]{fig/appendix_illustration.jpg}
+		\caption{各类换能器结构对比（图片待补充）}
+		\label{fig:appendix}
+	\end{figure}
+
+
+
 
 \subsection{耳机}
 
@@ -6223,21 +6481,21 @@ USRP (Universal Software Radio Peripheral) 是 Ettus Research（现属 NI）开�
 \label{sec:sdr_selection}
 
 \begin{table}[htbp]
-\centering
-\caption{SDR 平台选型对比表}
-\label{tab:sdr_selection}
-\begin{tabular}{@{}lllp{4cm}l@{}}
-    \toprule
-    \textbf{级别} & \textbf{代表型号} & \textbf{收发} & \textbf{主要应用} & \textbf{参考价} \\
-    \midrule
-    入门 & RTL-SDR & 仅接收 & 学习、监听、频谱 & $10-30 \\$ \\
-    入门 & PlutoSDR & 收发 & 学习、无线通信实验 & $\sim150 \\$ \\
-    中端 & HackRF One & 收发 & 信号研究、无线电攻击 & $300-500 \\$ \\
-    中端 & LimeSDR & 收发 & 原型开发、宽带接收 & $200-300 \\$ \\
-    中高端 & SDRplay RSP & 仅接收 & DX 通信、专业接收 & $\sim400 \\$ \\
-    专业 & USRP B/N/X & 收发 & 学术、工业、军事 & 数千-数万 \\$ \\
-    \bottomrule
-\end{tabular}
+	\centering
+	\caption{SDR 平台选型对比表}
+	\label{tab:sdr_selection}
+	\begin{tabular}{@{}lllp{4cm}l@{}}
+		\toprule
+		\textbf{级别} & \textbf{代表型号} & \textbf{收发} & \textbf{主要应用} & \textbf{参考价} \\
+		\midrule
+		入门   & RTL-SDR    & 仅接收 & 学习、监听、频谱       & \$10--30 \\
+		入门   & PlutoSDR   & 收发   & 学习、无线通信实验     & 约\$150 \\
+		中端   & HackRF One & 收发   & 信号研究、无线电攻击   & \$300--500 \\
+		中端   & LimeSDR    & 收发   & 原型开发、宽带接收     & \$200--300 \\
+		中高端 & SDRplay RSP & 仅接收 & DX 通信、专业接收      & 约\$400 \\
+		专业   & USRP B/N/X  & 收发   & 学术、工业、军事       & 数千--数万 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 % ================================================
@@ -6283,6 +6541,7 @@ GNU Radio 是 SDR 领域最核心的开源软件开发框架——Python 脚本 
 \end{itemize}
 
 \textbf{Python 代码片段（FM 解调核心）}：
+
 \begin{lstlisting}[language=Python,caption={FM 解调核心代码}]
 from gnuradio import gr, blocks, analog, audio
 
@@ -6542,7 +6801,7 @@ librtlsdr 是 C 库——直接与 rtl-sdr 底层通讯——性能最高应用�
 
 \subsection{SDR与ATU的配合}
 \begin{itemize}[leftmargin=2cm]
-    \item SDR 软件（如 SDR#、GQRX）通常支持通过 CAT（Computer-Aided Tuning）接口控制 ATU 自动调谐。
+    \item SDR 软件（如 SDR\#、GQRX）通常支持通过 CAT（Computer-Aided Tuning）接口控制 ATU 自动调谐。
     \item 部分 SDR 硬件（如 SDRplay RSP）内置了调谐器，可通过软件控制。
     \item 对于自制 ATU，可使用 Arduino/STM32 实现自动调谐功能。
 \end{itemize}
@@ -7330,7 +7589,7 @@ rtl_test
     \item 检查 USB 连接是否牢固，尝试更换 USB 端口或线缆。
     \item 在 Windows 上使用 Zadig 重新安装驱动。
     \item 在 Linux 上检查 \texttt{lsusb} 是否能识别设备。
-    \item 尝试 \texttt{rtl_test} 查看驱动是否正常。
+    \item 尝试 \texttt{rtl\_test} 查看驱动是否正常。
     \item 如果还是不行，可能是 RTL-SDR 硬件损坏。
 \end{enumerate}
 
