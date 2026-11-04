@@ -2,6 +2,7 @@
 % Source: "SWR and the meaning of life" by Jim Tregellas VK5JST,
 %   Amateur Radio (WIA) Vol. 89 No. 2, 2021. (Originally WIA_MEMBER_ARMAG_2021_2_Mar_Apr.PDF)
 % Converted from PDF to LaTeX on 2026-10-30.
+% Added Chinese translation (bilingual) on 2026-10-30.
 %
 % Notes on figures:
 %   * Figure 1 and Figure 2 in the original are data TABLES (not raster images).
@@ -14,11 +15,14 @@
 %   * The 144 MHz beacon map is the only true raster image; it is embedded from
 %     images/swrMOL_beacon.jpg (extracted from the PDF).
 %
-% Compile with: pdflatex swrMOL.tex   (or xelatex)
+% Compile with: xelatex swrMOL.tex
+%   (Chinese support requires xelatex + the ctex package; pdflatex cannot
+%    typeset the Chinese translation.)
 
 \documentclass[11pt]{article}
 
-\usepackage[utf8]{inputenc}
+\usepackage{ctex}
+\AtBeginDocument{\renewcommand{\figurename}{Figure}}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{url}
@@ -35,50 +39,23 @@
 \begin{document}
 \maketitle
 
-\section*{SWR and the meaning of life}
+\section*{SWR and the meaning of life（驻波比与生命的意义）}
 
-We all know about SWR -- standing wave ratio -- because, over our lives we have
-all gathered a lot of information on the subject from our ham and CB friends, and
-other reliable sources, such as the American educational movie series entitled
-``Smokey and the Bandit''. 
+我们都听说过 SWR（驻波比，standing wave ratio），因为在生活中，我们都从火腿族（业余无线电爱好者）和 CB（民用波段）朋友那里，以及其他“可靠”来源——比如美国那部教育系列电影《Smokey and the Bandit》——收集了大量关于这个话题的信息。
 
-All of these sources clearly demonstrate that unless
-the ``SWR'' of our antenna system is less than 1.05, then we will not be heard,
-our finals will blow up, we will get RF burns from the metal parts of our
-microphones and rigs, and we may actually end up sterile from the excessive RF in
-the shack. Right? Errm, well, not quite.
+所有这些来源都清楚地“证明”了：除非我们天线系统的“SWR”小于 1.05，否则我们就无法被听见、末级功放管会炸毁、我们会因话筒和电台的金属部件而遭到射频灼伤，甚至可能因电台室里过量的射频而失去生育能力。对吧？嗯……其实并不完全如此。
 
-Amateur radio is full of tall tales and true, and nothing has more nonsense
-spoken about it than the SWR of antenna systems. So, let's look at some hard
-facts and try to establish some truth.
+业余无线电领域充斥着真真假假的奇谈，而关于天线系统 SWR 的胡说八道，比其他任何话题都多。所以，让我们来看看一些确凿的事实，试着厘清真相。
 
-\subsection*{About signal strength}
+\subsection*{关于信号强度}
 
-Back in the 1930s, it was generally agreed that 50 microvolts RMS of RF at the
-input terminals of a radio was an S9 signal (large), but that was about the
-extent of the agreement because receiver input impedances varied widely and so
-did the receiver automatic gain control (AGC) characteristics, noise performance
-and overall gain. 
+早在上世纪 1930 年代，人们普遍认同：收音机输入端的 50 微伏（有效值）射频信号即为 S9 信号（强信号）。但共识也就到此为止，因为接收机的输入阻抗千差万别，其自动增益控制（AGC）特性、噪声性能和总增益也是如此。
 
-It was not until the early 1980s that an attempt at some
-standardization was made by the International Amateur Radio Union (IARU) and
-signal levels were defined that should produce particular readings on a
-receiver's S-meter. The receiver input impedance assumed for these ``standards''
-was 50 ohms and the voltage levels defined are shown in Figure 1.
+直到 1980 年代初，国际业余无线电联盟（IARU）才尝试进行某种标准化，定义了应当使接收机 S 表产生特定读数的信号电平。这些“标准”所假定的接收机输入阻抗为 50 欧姆，所定义的电压电平如图 1 所示。
 
-Note that a change of one S-point doubles or halves the voltage to be found at
-the receiver input (or a 6 dB change). This logarithmic scale has some
-interesting consequences. Say a distant transmitter of 100 Watts is producing a
-strength seven (S7) level in your receiver. To boost the received signal to S8,
-the voltage at the receiver input must double, and so the transmitter power must
-be quadrupled to 400 Watts to cause this. An S9 signal level will require a
-transmitter power of 1600 Watts!
+注意：每改变一个 S 单位，接收机输入端的电压就会加倍或减半（即变化 6 dB）。这种对数刻度带来了一些有趣的结果。假设某台 100 瓦的远端发射机在你的接收机中产生了 S7 的信号强度。若要把接收信号提升到 S8，接收机输入端的电压必须翻倍，因此发射机功率必须提高到 4 倍即 400 瓦才能实现。而要达到 S9 信号电平，则需要发射机功率高达 1600 瓦！
 
-Also note that this quadrupling of transmitter power produces a fairly minor
-change in the received audio level due to the receiver's AGC action. It is worth
-noting that, even in these days of very advanced receivers, AGC action is seldom
-exactly logarithmic and S-meters still typically tell the small lies loved by
-salespeople everywhere as they boast about the behavior of their products.
+还要注意，由于接收机 AGC（自动增益控制）的作用，发射机功率的这 4 倍提升，对接收音频电平的改变其实相当微小。值得一提的是，即使在接收机高度先进的今天，AGC 的动作也很少能完全符合对数规律，S 表仍然会像各地推销员吹嘘产品时那样，说一些人人爱听的小谎言。
 
 \begin{figure}[htbp]
   \centering
@@ -99,28 +76,19 @@ salespeople everywhere as they boast about the behavior of their products.
     S9 + 20 dB  & 500.0 \\
     \bottomrule
   \end{tabular}
-  \caption{Figure 1. Signal strengths and the related receiver input voltages
-    (IARU 50-ohm S-meter standard: S9 = 50~$\mu$V, 6~dB per S-point).}
+  \caption{信号强度与对应的接收机输入电压（IARU 50 欧姆 S 表标准：S9 = 50~$\mu$V，每个 S 单位 6~dB）。}
   \label{fig:fig1}
 \end{figure}
 
-\subsection*{Power loss at various SWR levels}
+\subsection*{不同 SWR 水平下的功率损耗}
 
-The next item that must be addressed is what power loss is implied by various
-SWR figures? 
+接下来要讨论的问题是：不同的 SWR 数值意味着多大的功率损耗？
 
-Have a look at Figure 2 and prepare to be surprised. Even at an SWR
-of 3.0, the power loss in the antenna system is just 25~\%, which, given the
-four-fold increase in power level needed to move just one S-point, only
-represents a change of a very small part of an S-point, and essentially no change
-in the received audio level at all. 
+请看看图 2，准备好感到惊讶吧。即使在 SWR 高达 3.0 时，天线系统中的功率损耗也不过 25\%；考虑到要让信号仅仅移动一个 S 单位就需要功率提升 4 倍，这 25\% 仅相当于不到一个 S 单位的微小变化，实际上对接收音频电平几乎没有影响。
 
-For an SWR of 1.5 or less (4~\% loss), you
-will not even see the S-meter needle move, and you will certainly not be able to
-detect any change at all in receiver audio level. 
+当 SWR 为 1.5 或更低（损耗 4\%）时，你甚至看不到 S 表指针移动，当然也就根本无法察觉接收音频电平有任何变化。
 
-So given the above, why all
-the fuss about SWR?
+既然如此，为什么还要对 SWR 大惊小怪呢？
 
 \begin{figure}[htbp]
   \centering
@@ -142,61 +110,30 @@ the fuss about SWR?
     10.0  & 66.9  \\
     \bottomrule
   \end{tabular}
-  \caption{Figure 2. The power lost (reflected) at various levels of SWR,
-    computed as $100\times((SWR-1)/(SWR+1))^2$.}
+  \caption{在不同 SWR 水平下损耗（被反射）的功率，按
+    $100\times((SWR-1)/(SWR+1))^2$ 计算。}
   \label{fig:fig2}
 \end{figure}
 
-\subsection*{Standing waves in an antenna system}
+\subsection*{天线系统中的驻波}
 
-Standing waves develop in an antenna system as a result of the impedance of the
-system not matching the output impedance of the transmitter. As the output of
-the transmitter moves through a series of cycles of a (hopefully) good clean
-sine wave, each cycle moves down the transmission line toward the antenna and
-away from the transmitter at either the speed of light (open-wire lines) or some
-fraction of the light speed. 
+当系统的阻抗与发射机的输出阻抗不匹配时，天线系统中就会产生驻波。随着发射机输出经历一系列（但愿是）干净良好的正弦波形周期，每一个周期都会沿着传输线朝天线方向、远离发射机传播，其速度要么是光速（明线馈线），要么为光速的某个分数。
 
-In the case of coaxial cables with solid plastic
-dielectrics such as RG58, these wave fronts move at around 66~\% of the velocity
-of light (or RF). Cables with foam dielectrics have lower losses and faster
-moving wave fronts (typically 0.8--0.9 of light's velocity). The speed of
-propagation relative to the speed of light is known as the ``velocity factor''.
+对于像 RG58 这样采用实心塑料介质的同轴电缆，这些波前以大约光速的 66\% 传播（即射频速度）。采用泡沫介质的电缆损耗更低、波前传播更快（通常为光速的 0.8--0.9）。相对于光速的传播速度被称为“速度因子”。
 
-When each wave front reaches the system termination, its energy may be totally
-absorbed and radiated by the antenna (a perfect match of 50 ohms), or some
-energy may be reflected back towards the transmitter. 
+当每个波前到达系统终端时，其能量可能被天线完全吸收并辐射出去（50 欧姆的完美匹配），也可能有一部分能量被反射回发射机。
 
-In the first case, as
-there is no reflected energy, no standing wave can develop and the RF voltage
-along the transmission line will be exactly the same at all points on the line.
-This is illustrated in Figure 3 by the yellow trace in the graph.
+在第一种情况下，由于没有反射能量，就不会形成驻波，传输线上的射频电压在线路所有位置上都完全相等。图 3 中黄色的曲线正说明了这一点。
 
-In the second case, the amount of reflected energy will be determined by how
-close the terminating impedance is to 50 ohms. For a SWR of 1.5 (little
-reflected energy) the terminating resistor in a 50 ohm system can be either 75
-ohms or 33.33 ohms as both of these generate this SWR figure. 
+在第二种情况下，反射能量的多少取决于终端阻抗与 50 欧姆的接近程度。对于 SWR 为 1.5（反射能量很小）的情况，在 50 欧姆系统中，终端电阻可以是 75 欧姆，也可以是 33.33 欧姆，因为两者都会产生这一 SWR 数值。
 
-This same idea of
-two different loads generating the same SWR also applies to a system with either
-a shorted or open-circuit load. No energy can be absorbed in these loads and so
-the SWR is infinity (the yellow trace).
+这种“两种不同的负载产生相同 SWR”的思路，同样适用于短路或开路负载的系统。这些负载无法吸收任何能量，因此 SWR 为无穷大（即黄色曲线）。
 
-In Figure 3, note that, as the load SWR moves away from the perfect 1.0 in
-either direction (either greater or lesser impedances than the perfect 50 ohm
-termination), the voltage maximums and minimums along the transmission line
-increase as the forward and back waves interact. And this is what causes the
-concern with SWR figures.
+在图 3 中请注意：当负载 SWR 从完美的 1.0 向任一方向偏离（阻抗高于或低于完美的 50 欧姆终端）时，随着前向波与回波的相互叠加，传输线上电压的最大值与最小值都会增大。而这正是人们对 SWR 数值感到担忧的原因。
 
-It is also worth reflecting on what happens to the RF current along such a
-transmission line. It has the opposite shape to the standing wave for voltage.
-As power is being transmitted, when the voltage is maximum then the current is
-minimum, and vice versa. 
+同样值得思考的是，沿此类传输线的射频电流会发生什么。它的形状与电压驻波相反。在功率传输过程中，当电压处于最大值时，电流处于最小值，反之亦然。
 
-The final part of the picture is that transmission
-lines are seldom of the right length. It is entirely possible that the
-transmitter output might just be coupled to a line with a voltage or current
-maximum that appears right at the transmitter output and so places the output
-devices under the maximum possible stress.
+最后还要看到，传输线很少是“恰好合适”的长度。完全有可能出现这样的情况：发射机输出恰好连接到了一条在发射机输出端就出现电压或电流最大值的传输线，从而使输出器件承受可能的最大应力。
 
 \begin{figure}[htbp]
   \centering
@@ -236,94 +173,27 @@ devices under the maximum possible stress.
       \addlegendentry{SWR = $\infty$}
     \end{axis}
   \end{tikzpicture}
-  \caption{Figure 3. Illustrating the voltage maximums and minimums
-    (``maxima and minima'') along a transmission line at differing SWR values.
-    Curves are the normalised standing-wave voltage
-    $V(x)=\sqrt{1-2\Gamma\cos(4\pi x)+\Gamma^2}$ with
-    $\Gamma=(SWR-1)/(SWR+1)$, $x$ in wavelengths.}
+  \caption{展示在不同 SWR 值下，传输线上电压的最大值与最小值（maxima and minima）。曲线为归一化驻波电压$V(x)=\sqrt{1-2\Gamma\cos(4\pi x)+\Gamma^2}$，其中
+    $\Gamma=(SWR-1)/(SWR+1)$，$x$ 以波长为单位。}
   \label{fig:fig3}
 \end{figure}
 
-\subsection*{A design compromise}
+\subsection*{一种设计上的折中}
 
-So it is worth looking at Figure 3 in more detail, because it clearly shows the
-compromise a design engineer must make when designing an RF output stage. On one
-side is a sales engineer screaming that, to compete with the opposition, he
-needs the maximum possible output power and on the other side is an accountant
-moaning about the costs of expensive RF output devices. 
+因此，值得更详细地看看图 3，因为它清楚地展示了设计工程师在设计射频输出级时必须做出的折中。一边是销售工程师在大喊：为了与对手竞争，他需要尽可能大的输出功率；另一边是会计在抱怨昂贵的射频输出器件成本高昂。
 
-The nett result of all
-this pressure is that the RF output devices in a transceiver are generally
-flogged to within an inch (cm~\dots) of their lives, and little safety margin is
-left. Typical industry practice is therefore to provide full output power up to
-an SWR of 1.5 (25~\% over-voltage) and after this, to back-off the drive to the
-RF output stages with ALC. And this protection happens fast. If you happen to
-have an antenna system with an SWR of 3.0 then you will be lucky if your modern
-100 Watt transmitter is actually putting out 20 Watts.
+所有这些压力的最终结果是：收发机中的射频输出器件通常被压榨到濒临极限（以厘米计），几乎没有留下安全余量。因此，业界的典型做法是：在 SWR 达到 1.5（过压 25\%）之前提供满额输出功率，超过之后，则通过 ALC（自动电平控制）降低对射频输出级的激励。而且这种保护发生得非常快。如果你碰巧拥有一个 SWR 为 3.0 的天线系统，那么你的现代 100 瓦发射机实际输出能有 20 瓦就算幸运了。
 
-Of course, a lot of the mythology about SWR stems from the early days of CB,
-when output stages were totally unprotected (costs again), and even the shortest
-exposure of a transceiver output stage to an open or shorted line would result
-in either 200~\% overvoltage or current that would immediately destroy the
-output transistors. 
+当然，关于 SWR 的许多神话都源于 CB（民用波段）的早期，那时输出级完全没有任何保护（又是成本问题），即便收发机输出级只是极短暂地接上开路或短路的馈线，也会产生 200\% 的过压，或者出现会立即烧毁输出晶体管的电流。
 
-It should also be pointed out that the tube output stages of
-old ``boat anchor'' rigs are way less likely to be damaged by these factors.
-First, these output stages almost always have ``Tune'' and ``Load'' controls
-that allow impedances other than 50 ohms to be perfectly matched and, secondly,
-tubes have far greater margins available to deal with overloads anyway. 
+还应该指出，老式“船锚”（笨重古董电台）的电子管输出级，远不容易因这些因素而损坏。首先，这些输出级几乎总带有“调谐（Tune）”和“负载（Load）”控制，可以将非 50 欧姆的阻抗完美匹配；其次，电子管本身就有大得多的余量来应对过载。
 
-Most
-``boat anchors'' will happily deal with SWRs of 3.0 or more without complaint.
+大多数“船锚”都能轻松应对 3.0 或更高的 SWR，毫无怨言。
 
-Finally, it is interesting that many international broadcasting stations that
-have to be very frequency agile above the 40m ham band to take advantage of
-current propagation conditions use antenna systems with SWR figures of up to
-9.0. Why? Because it is cheaper to design a very tolerant transmitter output
-stage than to design and construct a very wideband antenna system.
+最后，有意思的是：许多国际广播电台为了利用当前传播条件，不得不在 40 米业余波段以上保持很高的频率敏捷性，它们使用的天线系统 SWR 高达 9.0。为什么？因为设计一台宽容度很高的发射机输出级，比设计和建造一套极宽频带的天线系统要便宜得多。
 
-\subsection*{Summarising}
+\subsection*{总结}
 
-So in summary, provided your SWR is less than 1.5, there will be no ill effects
-at all -- and with most boat anchors you can get away with murder. But, if you
-want to be heard all of the preceding discussion assumes that you have an
-efficient antenna system. You can easily get a very low SWR at 2m by connecting
-a 144 MHz transceiver to a 100 metre length of RG58 with the far end being open
-circuit. Lots of hot plastic, no reflected power back to the transceiver, and a
-measured SWR of less than 1.1:1!
-
-\section*{144 MHz beacon in South Atlantic heard 7000 km away in France}
-
-The recently installed 144 MHz beacon on St Helena Island in the South Atlantic
-off the coast of West Africa, was copied by Jeff FY0F on 5 March 2021. As
-reported by John EI7GL, the path is almost 7000 km, as illustrated on the map
-here. 
-
-FY0F recorded signals of the ZD7GWM beacon on 144.475 MHz for a period
-just shy of two hours, from around 9pm to 11pm local time. This time period,
-together with the signal characteristics, strongly suggests the propagation was
-Class 2 (evening-type) transequatorial propagation (TEP). Check out this
-29-second recording: \url{https://soundcloud.com/f0fyf/beacon2}
-
-To copy the beacon, Jeff was using a stack of 2~$\times$~9-element Yagis at 7m
-height above ground, mounted on a temporary mast. 
-
-There is some discussion
-online about the audio recordings of ZD7GWM off-air by FY0F during this session,
-which don't match some characteristics of other recordings of the beacon. 
-
-To
-learn more about Evening Type Transequatorial VHF Propagation, visit:
-\url{http://home.iprimus.com.au/toddemslie/eTEP-Harrison.htm}
-
-Roger Harrison VK2ZRH
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.6\textwidth]{images/swrMOL_beacon.jpg}
-  \caption*{Reception of the St Helena beacon ZD7GWM on 144 MHz by FY0F in
-    France, March 2021 -- approximately 7000 km (great-circle path shown).}
-  \label{fig:beacon}
-\end{figure}
+综上所述，只要你的 SWR 小于 1.5，就根本不会产生任何不良影响——而对大多数“船锚”来说，你就算胡来也没事。但是，如果你想被听见，前面所有的讨论都假设你拥有高效的天线系统。你可以很容易地在 2 米波段得到一个极低的 SWR：把一台 144 MHz 收发机接到 100 米长的 RG58 电缆上，远端开路。结果是大量塑料被烤热、没有反射功率回到收发机，而实测 SWR 不到 1.1:1！
 
 \end{document}
