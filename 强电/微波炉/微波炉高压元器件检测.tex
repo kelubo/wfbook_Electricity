@@ -5,6 +5,7 @@
 \usepackage{multirow}                 % 表格跨行
 \usepackage{array}                    % 表格列类型
 \usepackage{tabularx}                 % 自适应宽度表格
+\usepackage{pdflscape}                % 横向页面（横排大表）
 \usepackage{enumitem}                 % 列表样式
 \usepackage{amsmath}                  % 数学公式
 \usepackage{xcolor}                   % 颜色
@@ -77,8 +78,9 @@
 \textbf{说明：}双向二极管用于吸收高压回路浪涌、保护磁控管与高压二极管；一旦吸收过压失效，通常表现为\textbf{短路（某一方向导通）}，此时须更换。
 
 \subsection*{检测读数速查表}
+\begin{landscape}
 \begin{center}
-\begin{tabularx}{\textwidth}{|l|l|X|c|c|}
+\begin{tabularx}{\textheight}{|l|l|X|c|c|}
 \hline
 \textbf{元器件} & \textbf{测试位置} & \textbf{量程} & \textbf{正常读数} & \textbf{异常表现} \\ \hline
 \multirow{2}{*}{磁控管} & 两灯丝端子 & 低阻档 & 低阻连续（$\approx 1\,\Omega$） & 开路（无穷大） \\ \hline
@@ -93,6 +95,8 @@
 双向二极管 & 正、反两向 & $\mathrm{R}\times10\,\mathrm{k}$ & 双向均无穷大 & 任一方向导通即损坏 \\ \hline
 \end{tabularx}
 \end{center}
+\end{landscape}
+\clearpage
 
 \textbf{备注：}以上为常见微波炉的典型参考值；不同品牌/型号的具体阻值会有差异，实际维修应以对应机型的维修手册为准，并结合"不加热"等故障现象综合判断。
 
