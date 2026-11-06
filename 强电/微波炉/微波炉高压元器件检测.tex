@@ -5,7 +5,6 @@
 \usepackage{multirow}                 % 表格跨行
 \usepackage{array}                    % 表格列类型
 \usepackage{tabularx}                 % 自适应宽度表格
-\usepackage{ltablex}                  % 可跨页的 tabularx（大表）
 \usepackage{pdflscape}                % 横向页面（横排大表）
 \usepackage{enumitem}                 % 列表样式
 \usepackage{amsmath}                  % 数学公式
@@ -81,30 +80,30 @@
 \subsection*{检测读数速查表}
 \begin{landscape}
 \begin{center}
-\small
-\begin{tabularx}{\textheight}{|l|l|X|c|c|}
+\footnotesize
+\renewcommand{\arraystretch}{1.4}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{2.8cm}|p{3.2cm}|p{3.0cm}|p{7.0cm}|p{7.0cm}|}
 \hline
 \textbf{元器件} & \textbf{测试位置} & \textbf{量程} & \textbf{正常读数} & \textbf{异常表现} \\ \hline
-\endfirsthead
-\hline
-\textbf{元器件} & \textbf{测试位置} & \textbf{量程} & \textbf{正常读数} & \textbf{异常表现} \\ \hline
-\endhead
-\hline
-\endlastfoot
-磁控管 & 两灯丝端子 & 低阻档 & 低阻连续（$\approx 1\,\Omega$） & 开路（无穷大） \\ \hline
-磁控管 & 灯丝端子对外壳 & 高阻档 & 无穷大 & 短路（阻值小/为零） \\ \hline
-高压变压器 & 初级绕组 & 低阻档 & $\approx 1\sim2\,\Omega$ & 开路/短路 \\ \hline
-高压变压器 & 次级高压绕组 & 低阻档 & $\approx 100\sim150\,\Omega$ & 开路/明显偏离 \\ \hline
-高压变压器 & 灯丝绕组 & 低阻档 & 低阻连续（$\approx 0\sim1\,\Omega$） & 开路 \\ \hline
-高压电容 & 两端子 & $\mathrm{R}\times10\,\mathrm{k}$ & 跳针后回升至 $\approx 10\,\mathrm{M}\Omega$ & 恒导通(短路)/恒高(开路) \\ \hline
-高压电容 & 端子对外壳 & 高阻档 & 无穷大 & 对地短路 \\ \hline
-高压二极管 & 正向 & $\mathrm{R}\times10\,\mathrm{k}$ & $150\sim300\,\mathrm{k}\Omega$ & 短路/无法导通 \\ \hline
-高压二极管 & 反向 & $\mathrm{R}\times10\,\mathrm{k}$ & 无穷大 & 有阻值/为零 \\ \hline
+\multirow{2}{2.8cm}{\centering 磁控管} & 两灯丝端子 & 低阻档 & 低阻连续（$\approx 1\,\Omega$） & 开路（无穷大） \\
+\cline{2-5}
+& 灯丝端子对外壳 & 高阻档 & 无穷大 & 短路（阻值小/为零） \\ \hline
+\multirow{3}{2.8cm}{\centering 高压变压器} & 初级绕组 & 低阻档 & $\approx 1\sim2\,\Omega$ & 开路/短路 \\
+\cline{2-5}
+& 次级高压绕组 & 低阻档 & $\approx 100\sim150\,\Omega$ & 开路/明显偏离 \\
+\cline{2-5}
+& 灯丝绕组 & 低阻档 & 低阻连续（$\approx 0\sim1\,\Omega$） & 开路 \\ \hline
+\multirow{2}{2.8cm}{\centering 高压电容} & 两端子 & $\mathrm{R}\times10\,\mathrm{k}$ & 跳针后回升至 $\approx 10\,\mathrm{M}\Omega$ & 恒导通（短路）/恒高（开路） \\
+\cline{2-5}
+& 端子对外壳 & 高阻档 & 无穷大 & 对地短路 \\ \hline
+\multirow{2}{2.8cm}{\centering 高压二极管} & 正向 & $\mathrm{R}\times10\,\mathrm{k}$ & $150\sim300\,\mathrm{k}\Omega$ & 短路/无法导通 \\
+\cline{2-5}
+& 反向 & $\mathrm{R}\times10\,\mathrm{k}$ & 无穷大 & 有阻值/为零 \\ \hline
 双向二极管 & 正、反两向 & $\mathrm{R}\times10\,\mathrm{k}$ & 双向均无穷大 & 任一方向导通即损坏 \\ \hline
-\end{tabularx}
+\end{tabular}
 \end{center}
 \end{landscape}
-\clearpage
 
 \textbf{备注：}以上为常见微波炉的典型参考值；不同品牌/型号的具体阻值会有差异，实际维修应以对应机型的维修手册为准，并结合"不加热"等故障现象综合判断。
 
