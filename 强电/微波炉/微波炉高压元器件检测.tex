@@ -1,3 +1,24 @@
+\documentclass[12pt,a4paper]{ctexbook}
+%================ 导言区（packages） ================
+\usepackage[margin=2.5cm]{geometry}   % 页边距
+\usepackage{booktabs}                 % 三线表、\addlinespace
+\usepackage{multirow}                 % 表格跨行
+\usepackage{array}                    % 表格列类型
+\usepackage{tabularx}                 % 自适应宽度表格
+\usepackage{enumitem}                 % 列表样式
+\usepackage{amsmath}                  % 数学公式
+\usepackage{xcolor}                   % 颜色
+\usepackage{hyperref}                 % 超链接（建议最后加载）
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+
+% 列表默认样式
+\setlist[enumerate]{leftmargin=2.2em,itemsep=2pt,topsep=4pt}
+\setlist[itemize]{leftmargin=2.2em,itemsep=2pt,topsep=4pt}
+
+\begin{document}
+
+\chapter{微波炉}
+
 \section{微波炉高压系统元器件检测}
 \label{sec:mw_oven_hv_components}
 
@@ -80,3 +101,5 @@
 \end{center}
 
 \textbf{备注：}以上为常见微波炉的典型参考值；不同品牌/型号的具体阻值会有差异，实际维修应以对应机型的维修手册为准，并结合"不加热"等故障现象综合判断。
+
+\end{document}
