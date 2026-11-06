@@ -1,0 +1,82 @@
+\section{微波炉高压系统元器件检测}
+\label{sec:mw_oven_hv_components}
+
+微波炉加热系统的核心是\textbf{高压电路}：高压变压器把市电升压，再经高压二极管与高压电容构成的倍压整流回路，向磁控管提供约 $2\sim4\,\mathrm{kV}$ 的高压，使其产生 $2.45\,\mathrm{GHz}$ 微波。高压二极管、高压电容与磁控管共同组成"倍压整流 + 激励"回路，也是微波炉"不加热"故障最常见的故障源。本节给出这些高压元器件的\textbf{离线检测方法}（万用表电阻档），适用于故障初判与坏件更换决策。
+
+\subsection*{安全前提（务必遵守）}
+\begin{itemize}
+  \item 所有检测均在\textbf{切断电源}后进行；
+  \item 高压电容断电后仍可长时间保持危险电压，测量前必须\textbf{充分放电}（用带绝缘柄的螺丝刀短接两端，或串接大功率电阻放电）；
+  \item 测量前\textbf{拔掉相关接线}，将待测元件从电路中分离，避免并联支路干扰读数；
+  \item 高压二极管与高压电容须用\textbf{高阻档（$\mathrm{R}\times10\,\mathrm{k}$）}测量，且万用表电池电量须充足（$\mathrm{R}\times10\,\mathrm{k}$ 档通常需 $9\,\mathrm{V}$ 电池），否则读数失真。
+\end{itemize}
+
+\subsection{磁控管（Magnetron）}
+\begin{enumerate}
+  \item 两\textbf{灯丝端子}之间：正常为\textbf{低阻且导通}（约 $1\,\Omega$ 量级，须连续）；若为无穷大（开路），说明灯丝烧毁；
+  \item \textbf{灯丝端子对外壳（接地）}：正常应为\textbf{无穷大}；若阻值很小或为零（短路），说明磁控管内部击穿，须更换。
+\end{enumerate}
+\textbf{说明：}灯丝测试只能判断"开路/短路"，无法判断磁控管能否产生微波——若其余元件均正常而炉子仍不加热，应更换磁控管后复测。
+
+\subsection{高压变压器（HV Transformer）}
+检测三个绕组及绕组对地情况：
+\begin{enumerate}
+  \item \textbf{初级绕组}：低阻，约 $1\sim2\,\Omega$（$\le 2.5\,\Omega$）；开路或短路均故障；
+  \item \textbf{次级（高压）绕组}：约 $100\sim150\,\Omega$（典型 $112\,\Omega$）；无穷大或明显偏离即故障；
+  \item \textbf{灯丝绕组}：低阻且连续（约 $0\sim1\,\Omega$）；
+  \item \textbf{各绕组对外壳（地）}：正常均为\textbf{无穷大}；若导通，则绕组对地短路。
+\end{enumerate}
+\textbf{说明：}初级（低阻）—次级（百欧级高阻）—灯丝（近零）的相对关系是判断要点；具体数值随机型略有差异。
+
+\subsection{高压电容（HV Capacitor）}
+\begin{enumerate}
+  \item \textbf{两端子之间}（$\mathrm{R}\times10\,\mathrm{k}$ 档）：正常为\textbf{瞬间导通（充电跳针）后回升至约 $10\,\mathrm{M}\Omega$}；
+    \begin{itemize}
+      \item 始终导通、不回升 $\rightarrow$ \textbf{短路}，更换；
+      \item 始终约 $10\,\mathrm{M}\Omega$、无充电跳针 $\rightarrow$ \textbf{开路/失效}，更换。
+    \end{itemize}
+  \item \textbf{端子对外壳}：正常为\textbf{无穷大}；若导通，则电容对地短路。
+\end{enumerate}
+\textbf{安全提示：}高压电容是微波炉内最危险的元件，断电后仍可能带致命电压，必须先放电再测。
+
+\subsection{高压二极管（HV Diode，单向二极管 / 高压整流器组件）}
+\begin{enumerate}
+  \item 用\textbf{$\mathrm{R}\times10\,\mathrm{k}$ 高阻档}测量；万用表电池须充足（通常需 $9\,\mathrm{V}$），否则正反向都显示无穷大，造成误判；
+  \item \textbf{正向}：约 $150\sim300\,\mathrm{k}\Omega$（即 $>100\,\mathrm{k}\Omega$，导通但呈高阻）；
+  \item \textbf{反向}：\textbf{无穷大}。
+\end{enumerate}
+\textbf{说明：}微波炉高压二极管正向压降很高，低电压档难以使其导通，故须用 $9\,\mathrm{V}$ 高阻档。若正反向都导通（短路）或无法区分方向，则判定损坏。
+
+\subsection{双向二极管（Bidirectional Diode，保护二极管 / 压敏元件）}
+\begin{enumerate}
+  \item 用\textbf{$\mathrm{R}\times10\,\mathrm{k}$ 档}测量；
+  \item 先\textbf{断开接线}，将其从电路中分离后测量；
+  \item \textbf{正常}：正、\textbf{反两向均为无穷大}。
+\end{enumerate}
+\textbf{说明：}双向二极管用于吸收高压回路浪涌、保护磁控管与高压二极管；一旦吸收过压失效，通常表现为\textbf{短路（某一方向导通）}，此时须更换。
+
+\subsection*{检测读数速查表}
+\begin{center}
+\begin{tabularx}{\textwidth}{llXcc}
+\hline
+\textbf{元器件} & \textbf{测试位置} & \textbf{量程} & \textbf{正常读数} & \textbf{异常表现} \\
+\hline
+\multirow{2}{*}{磁控管} & 两灯丝端子 & 低阻档 & 低阻连续（$\approx 1\,\Omega$） & 开路（无穷大） \\
+& 灯丝端子对外壳 & 高阻档 & 无穷大 & 短路（阻值小/为零） \\
+\addlinespace
+\multirow{3}{*}{高压变压器} & 初级绕组 & 低阻档 & $\approx 1\sim2\,\Omega$ & 开路/短路 \\
+& 次级高压绕组 & 低阻档 & $\approx 100\sim150\,\Omega$ & 开路/明显偏离 \\
+& 灯丝绕组 & 低阻档 & 低阻连续（$\approx 0\sim1\,\Omega$） & 开路 \\
+\addlinespace
+\multirow{2}{*}{高压电容} & 两端子 & $\mathrm{R}\times10\,\mathrm{k}$ & 跳针后回升至 $\approx 10\,\mathrm{M}\Omega$ & 恒导通(短路)/恒高(开路) \\
+& 端子对外壳 & 高阻档 & 无穷大 & 对地短路 \\
+\addlinespace
+\multirow{2}{*}{高压二极管} & 正向 & $\mathrm{R}\times10\,\mathrm{k}$ & $150\sim300\,\mathrm{k}\Omega$ & 短路/无法导通 \\
+& 反向 & $\mathrm{R}\times10\,\mathrm{k}$ & 无穷大 & 有阻值/为零 \\
+\addlinespace
+双向二极管 & 正、反两向 & $\mathrm{R}\times10\,\mathrm{k}$ & 双向均无穷大 & 任一方向导通即损坏 \\
+\hline
+\end{tabularx}
+\end{center}
+
+\textbf{备注：}以上为常见微波炉的典型参考值；不同品牌/型号的具体阻值会有差异，实际维修应以对应机型的维修手册为准，并结合"不加热"等故障现象综合判断。
